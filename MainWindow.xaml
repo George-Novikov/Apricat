@@ -1,0 +1,28 @@
+﻿<Window x:Class="Apricat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Apricat"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid ShowGridLines="True" Background="FloralWhite">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="accountButton" Height="50" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top"
+                Content="Account" Background="Beige" Foreground="SaddleBrown" Grid.Column="3" Margin="0 0 50 0"/>
+        <Button x:Name="settingsButton" Height="50" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top"
+                Content="Settings" Background="Beige" Foreground="SaddleBrown" Grid.Column="3"/>
+        <Button x:Name="lessonButton" Height="30" Width="120" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
+                Content="Lessons" Background="Beige" Foreground="SaddleBrown"/>
+        <TextBlock Text="ApriCat" Foreground="SaddleBrown" FontSize="15" FontWeight="Bold" Grid.Column="0"
+                 Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+</Window>
