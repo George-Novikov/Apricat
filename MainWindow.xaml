@@ -8,8 +8,8 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid ShowGridLines="True" Background="FloralWhite">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -18,11 +18,20 @@
         </Grid.RowDefinitions>
         <Button x:Name="accountButton" Height="50" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top"
                 Content="Account" Background="Beige" Foreground="SaddleBrown" Grid.Column="3" Margin="0 0 50 0"/>
-        <Button x:Name="settingsButton" Height="50" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top"
-                Content="Settings" Background="Beige" Foreground="SaddleBrown" Grid.Column="3"/>
-        <Button x:Name="lessonButton" Height="30" Width="120" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
+        <Button x:Name="settingsButton" Content="Settings" Grid.Column="3" Click="settingsButton_GroupBoxCollapse"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Background="Beige" Foreground="SaddleBrown" Height="50" Width="50"/>
+        <Button x:Name="lessonButton" MinHeight="30" MinWidth="110" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
                 Content="Lessons" Background="Beige" Foreground="SaddleBrown"/>
         <TextBlock Text="ApriCat" Foreground="SaddleBrown" FontSize="15" FontWeight="Bold" Grid.Column="0"
                  Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <GroupBox x:Name="settingsGroupBox" Height="200" Width="300" Foreground="SaddleBrown"
+                  Visibility="Collapsed" Background="Beige" Grid.Row="1" Grid.Column="1"
+                  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <GroupBox.Header>
+                Настройки
+            </GroupBox.Header>
+        </GroupBox>
     </Grid>
+    
 </Window>

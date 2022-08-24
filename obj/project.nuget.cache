@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "X0uXktexPcpyf8idGmRuIgvc/DXECZ/u+5SFqsX08q5wSWHHLg++09/Mkt9HO5RZUJ7DRU8+xwJrtkyoLKshnA==",
+  "dgSpecHash": "RFfnA3v10J2YhhKY1aLOnugHTwPBOa0+9nSiIVTpJrVpoy7fWHgfK3xQ7VWm5xz//p5VnLMpx/VHBbpWrU+CJg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\fatem\\source\\repos\\Apricat\\Apricat.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\repository\\Apricat\\Apricat.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\fatem\\.nuget\\packages\\microsoft.data.sqlite\\6.0.8\\microsoft.data.sqlite.6.0.8.nupkg.sha512",
+    "C:\\Users\\fatem\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.8\\microsoft.data.sqlite.core.6.0.8.nupkg.sha512",
+    "C:\\Users\\fatem\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.6\\sqlitepclraw.bundle_e_sqlite3.2.0.6.nupkg.sha512",
+    "C:\\Users\\fatem\\.nuget\\packages\\sqlitepclraw.core\\2.0.6\\sqlitepclraw.core.2.0.6.nupkg.sha512",
+    "C:\\Users\\fatem\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.0.6\\sqlitepclraw.lib.e_sqlite3.2.0.6.nupkg.sha512",
+    "C:\\Users\\fatem\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\2.0.6\\sqlitepclraw.provider.e_sqlite3.2.0.6.nupkg.sha512",
+    "C:\\Users\\fatem\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+  ],
   "logs": []
 }
