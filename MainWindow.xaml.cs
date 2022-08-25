@@ -24,7 +24,7 @@ namespace Apricat
         public MainWindow()
         {
             InitializeComponent();
-
+            /*
             string connectionString = "Data Source=lessons.db";
             string sqlExpression = @"";
 
@@ -43,7 +43,7 @@ namespace Apricat
                     MessageBox.Show(ex.Message);
                 }
             }
-
+            */
         }
         void settingsButton_GroupBoxCollapse(object sender, RoutedEventArgs e)
         {

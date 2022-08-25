@@ -16,16 +16,20 @@
             <RowDefinition/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <Button x:Name="accountButton" Height="50" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top"
-                Content="Account" Background="Beige" Foreground="SaddleBrown" Grid.Column="3" Margin="0 0 50 0"/>
         <Button x:Name="settingsButton" Content="Settings" Grid.Column="3" Click="settingsButton_GroupBoxCollapse"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Background="Beige" Foreground="SaddleBrown" Height="50" Width="50"/>
-        <Button x:Name="lessonButton" MinHeight="30" MinWidth="110" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
-                Content="Lessons" Background="Beige" Foreground="SaddleBrown"/>
+        <Button x:Name="lessonButton" MinHeight="30" MinWidth="110" Grid.Column="0" Grid.Row="1"
+                VerticalAlignment="Top" Content="К урокам" Background="Beige" Foreground="SaddleBrown"/>
+        <Button x:Name="repetitionButton" MinHeight="30" MinWidth="110" Grid.Column="0" Grid.Row="1"
+                VerticalAlignment="Top" Content="Повторение" Background="Beige" Foreground="SaddleBrown"
+                Margin="0 30 0 0"/>
+        <Button x:Name="progressButton" MinHeight="30" MinWidth="110" Grid.Column="0" Grid.Row="1"
+                VerticalAlignment="Top" Content="Прогресс" Background="Beige" Foreground="SaddleBrown"
+                Margin="0 60 0 0"/>
         <TextBlock Text="ApriCat" Foreground="SaddleBrown" FontSize="15" FontWeight="Bold" Grid.Column="0"
                  Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <GroupBox x:Name="settingsGroupBox" Height="200" Width="300" Foreground="SaddleBrown"
+        <GroupBox x:Name="settingsGroupBox" MinHeight="200" MinWidth="300" Foreground="SaddleBrown"
                   Visibility="Collapsed" Background="Beige" Grid.Row="1" Grid.Column="1"
                   HorizontalAlignment="Center" VerticalAlignment="Center">
             <GroupBox.Header>
