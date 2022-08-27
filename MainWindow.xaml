@@ -29,6 +29,7 @@
                 Margin="0 60 0 0"/>
         <TextBlock Text="ApriCat" Foreground="SaddleBrown" FontSize="15" FontWeight="Bold" Grid.Column="0"
                  Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="workspaceTextBlock" Grid.Row="1" Grid.Column="1" Foreground="SaddleBrown"/>
         <GroupBox x:Name="settingsGroupBox" MinHeight="200" MinWidth="300" Foreground="SaddleBrown"
                   Visibility="Collapsed" Background="Beige" Grid.Row="1" Grid.Column="1"
                   HorizontalAlignment="Center" VerticalAlignment="Center">
