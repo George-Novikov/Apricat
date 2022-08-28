@@ -60,3 +60,6 @@ C:\repository\Apricat\bin\Debug\net6.0-windows\runtimes\win-arm64\native\e_sqlit
 C:\repository\Apricat\bin\Debug\net6.0-windows\runtimes\win-x64\native\e_sqlite3.dll
 C:\repository\Apricat\bin\Debug\net6.0-windows\runtimes\win-x86\native\e_sqlite3.dll
 C:\repository\Apricat\obj\Debug\net6.0-windows\Apricat.csproj.CopyComplete
+C:\repository\Apricat\obj\Debug\net6.0-windows\StartUp.g.cs
+C:\repository\Apricat\obj\Debug\net6.0-windows\App.baml
+C:\repository\Apricat\obj\Debug\net6.0-windows\StartUp.baml

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\repository\Apricat\App.xaml
-11407045341
+22049926564
 
-5562400166
+14-975962720
 1981754088063
-MainWindow.xaml;
+MainWindow.xaml;StartUp.xaml;
 
-True
+False
 

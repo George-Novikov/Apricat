@@ -1,0 +1,140 @@
+﻿<Window x:Class="Apricat.StartUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Apricat"
+        mc:Ignorable="d"
+        Title="ApriCat - Login" Height="413" Width="733" Closing="StartUpClosing_LoadMainWindow">
+    <Grid>
+        <GroupBox x:Name="loginGroupBox" Background="Beige">
+            <StackPanel>
+                
+            </StackPanel>
+        </GroupBox>
+        <GroupBox x:Name="registerGroupBox" Background="Beige">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                           Foreground="SaddleBrown" FontFamily="Century Gothic" FontSize="18">
+                    Привет! Я — Абрикот!<LineBreak/>
+                    Вместе мы научимся говорить по-английски!
+                </TextBlock>
+                <TextBlock Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center"
+                           FontFamily="Century Gothic" FontSize="16"
+                           Foreground="SaddleBrown">
+                    Как вас зовут?
+                </TextBlock>
+                <TextBox Grid.Row="2" Height="30" Width="150" VerticalAlignment="Top"
+                         VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                         FontFamily="Century Gothic" FontSize="16"/>
+                <TextBlock Grid.Row="3" VerticalAlignment="Bottom" TextAlignment="Center"
+                           FontFamily="Century Gothic" FontSize="16"
+                           Foreground="SaddleBrown">
+                    Какой у вас уровень английского?
+                </TextBlock>
+                <StackPanel Grid.Row="4" Orientation="Horizontal"
+                            HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <ToggleButton x:Name="beginnerButton" Height="100" MinWidth="100" Margin="10"
+                                  Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
+                                  Click="ToggleButtons_UncheckOnClick">
+                        <ToggleButton.Content>
+                            <TextBlock TextAlignment="Center">
+                                Новичок<LineBreak/>
+                                (Beginner)
+                            </TextBlock>
+                        </ToggleButton.Content>
+                        <ToggleButton.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </ToggleButton.Resources>
+                    </ToggleButton>
+                    <ToggleButton x:Name="elementaryButton" Height="100" MinWidth="100" Margin="10"
+                                  Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
+                                  Click="ToggleButtons_UncheckOnClick">
+                        <ToggleButton.Content>
+                            <TextBlock TextAlignment="Center">
+                                Базовый<LineBreak/>
+                                (Elementary)
+                            </TextBlock>
+                        </ToggleButton.Content>
+                        <ToggleButton.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </ToggleButton.Resources>
+                    </ToggleButton>
+                    <ToggleButton x:Name="intermediateButton" Height="100" MinWidth="100" Margin="10"
+                                  Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
+                                  Click="ToggleButtons_UncheckOnClick">
+                        <ToggleButton.Content>
+                            <TextBlock TextAlignment="Center">
+                                Средний<LineBreak/>
+                                (Intermediate)
+                            </TextBlock>
+                        </ToggleButton.Content>
+                        <ToggleButton.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </ToggleButton.Resources>
+                    </ToggleButton>
+                    <ToggleButton x:Name="upperIntermediateButton" Height="100" MinWidth="100" Margin="10"
+                                  Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
+                                  Click="ToggleButtons_UncheckOnClick">
+                        <ToggleButton.Content>
+                            <TextBlock TextAlignment="Center">
+                                Выше среднего<LineBreak/>
+                                (Upper-<LineBreak/>
+                                Intermediate)
+                            </TextBlock>
+                        </ToggleButton.Content>
+                        <ToggleButton.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </ToggleButton.Resources>
+                    </ToggleButton>
+                    <ToggleButton x:Name="advancedButton" Height="100" MinWidth="100" Margin="10"
+                                  Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
+                                  Click="ToggleButtons_UncheckOnClick">
+                        <ToggleButton.Content>
+                            <TextBlock TextAlignment="Center">
+                                Продвинутый<LineBreak/>
+                                (Advanced)
+                            </TextBlock>
+                        </ToggleButton.Content>
+                        <ToggleButton.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </ToggleButton.Resources>
+                    </ToggleButton>
+                </StackPanel>
+                <Button x:Name="registerButton" Grid.Row="5" Width="120"
+                        Content="Подтвердить"
+                        FontFamily="Century Gothic"
+                        FontSize="16"
+                        Background="Beige"
+                        Foreground="SaddleBrown"
+                        BorderBrush="SaddleBrown">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

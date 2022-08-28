@@ -5,31 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apricat"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid ShowGridLines="True" Background="FloralWhite">
+        Title="MainWindow" Height="667" Width="1187" >
+    <Grid ShowGridLines="False" Background="FloralWhite">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Button x:Name="lessonButton" MinHeight="50" MinWidth="110" Margin="3"
+                    FontSize="16" FontFamily="Century Gothic" Content="К урокам"
+                    Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="repetitionButton" MinHeight="50" MinWidth="110" Margin="3"
+                    FontSize="16" FontFamily="Century Gothic" Content="Повторение"
+                    Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="progressButton" MinHeight="50" MinWidth="110" Margin="3"
+                    FontSize="16" FontFamily="Century Gothic" Content="Мой прогресс" 
+                    Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <MediaElement />
+        </StackPanel>
+        <GroupBox x:Name="workspaceGroupBox" Grid.Row="1" Grid.Column="1" Background="#fffdfa">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="lessonHeader" Grid.Row="0" Text="Урок 1"
+                           HorizontalAlignment="Left" Margin="20"
+                           FontSize="16" FontFamily="Verdana" FontWeight="Bold"
+                           Foreground="SaddleBrown"/>
+            </Grid>
+        </GroupBox>
+        <TextBlock Text="Абрикот" Foreground="SaddleBrown" FontSize="18" FontWeight="Bold" Grid.Column="0"
+                 Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="workspaceTextBlock" Grid.Row="1" Grid.Column="1" Foreground="SaddleBrown"/>
         <Button x:Name="settingsButton" Content="Settings" Grid.Column="3" Click="settingsButton_GroupBoxCollapse"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Background="Beige" Foreground="SaddleBrown" Height="50" Width="50"/>
-        <Button x:Name="lessonButton" MinHeight="30" MinWidth="110" Grid.Column="0" Grid.Row="1"
-                VerticalAlignment="Top" Content="К урокам" Background="Beige" Foreground="SaddleBrown"/>
-        <Button x:Name="repetitionButton" MinHeight="30" MinWidth="110" Grid.Column="0" Grid.Row="1"
-                VerticalAlignment="Top" Content="Повторение" Background="Beige" Foreground="SaddleBrown"
-                Margin="0 30 0 0"/>
-        <Button x:Name="progressButton" MinHeight="30" MinWidth="110" Grid.Column="0" Grid.Row="1"
-                VerticalAlignment="Top" Content="Прогресс" Background="Beige" Foreground="SaddleBrown"
-                Margin="0 60 0 0"/>
-        <TextBlock Text="ApriCat" Foreground="SaddleBrown" FontSize="15" FontWeight="Bold" Grid.Column="0"
-                 Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock x:Name="workspaceTextBlock" Grid.Row="1" Grid.Column="1" Foreground="SaddleBrown"/>
         <GroupBox x:Name="settingsGroupBox" MinHeight="200" MinWidth="300" Foreground="SaddleBrown"
                   Visibility="Collapsed" Background="Beige" Grid.Row="1" Grid.Column="1"
                   HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -38,5 +73,4 @@
             </GroupBox.Header>
         </GroupBox>
     </Grid>
-    
 </Window>
