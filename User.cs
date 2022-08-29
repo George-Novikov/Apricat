@@ -9,6 +9,7 @@ namespace Apricat
 {
     internal class User : DatabaseItem
     {
+        public static User currentUser;
         public object Id { get; set; }
         public string UserName { get; set; }
         public string Level { get; set; } = "Beginner";
@@ -83,10 +84,34 @@ namespace Apricat
         {
 
         }
-        internal static void LogIn()
+        internal static User LogIn(int id)
         {
-            User currentUser = new User();
-
+            User loginUser = new User();
+            sqlExpression = @"SELECT * FROM Users
+                              WHERE UserId=@UserId";
+            using (SqliteConnection connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                SqliteParameter userIdParam = new SqliteParameter("@UserId", id);
+                command.Parameters.Add(userIdParam);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            loginUser.Id = reader.GetInt32(0);
+                            loginUser.UserName = reader.GetString(1);
+                            loginUser.Level = reader.GetString(2);
+                            loginUser.DailyRate = reader.GetInt32(3);
+                            loginUser.Vocabulary = reader.GetInt32(4);
+                            loginUser.GrammarKnowledge = reader.GetInt32(5);
+                        }
+                    }
+                }
+            }
+            return loginUser;
         }
     }
 }

@@ -10,9 +10,9 @@
         <GroupBox x:Name="loginGroupBox" Background="Beige" Visibility="Visible">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
@@ -20,27 +20,14 @@
                     Привет!<LineBreak/>
                     Рад снова тебя видеть!
                 </TextBlock>
-                <TextBlock Grid.Row="1" VerticalAlignment="Top" TextAlignment="Center"
+                <TextBlock Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center"
                            FontFamily="Century Gothic" FontSize="16"
                            Foreground="SaddleBrown">
                     Какую учётную запись использовать?
                 </TextBlock>
-                <StackPanel x:Name="userChoiceList" Orientation="Horizontal" Grid.Row="1" 
-                            VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                <StackPanel x:Name="userChoiceList" Orientation="Horizontal" Grid.Row="2" 
+                            VerticalAlignment="Top" HorizontalAlignment="Center">
                 </StackPanel>
-                <Button x:Name="loginButton" Grid.Row="2" Width="120" Height="50"
-                        Content="Войти"
-                        FontFamily="Century Gothic"
-                        FontSize="16"
-                        Background="Beige"
-                        Foreground="SaddleBrown"
-                        BorderBrush="SaddleBrown">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="15"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="registerGroupBox" Background="Beige" Visibility="Collapsed">

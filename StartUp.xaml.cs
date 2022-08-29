@@ -26,6 +26,7 @@ namespace Apricat
         public StartUp()
         {
             InitializeComponent();
+            User currentUser = new User();
             List<User> users = User.GetUsers();
             if (users.Count == 0)
             {
@@ -36,7 +37,7 @@ namespace Apricat
             {
                 foreach (User user in users)
                 {
-                    ToggleButton userButton = new ToggleButton();
+                    Button userButton = new Button();
                     TextBlock userButtonText = new TextBlock();
                     userButtonText.TextAlignment = TextAlignment.Center;
                     userButtonText.Text = $"{user.UserName}\n({user.Level})";
@@ -51,10 +52,19 @@ namespace Apricat
                     userButton.BorderBrush = new SolidColorBrush(Colors.SaddleBrown);
                     userButton.HorizontalContentAlignment = HorizontalAlignment.Center;
                     userButton.HorizontalAlignment = HorizontalAlignment.Center;
+                    userButton.Name = "_"+user.Id.ToString();
+                    userButton.Click += LogInButton_Click;
                     userChoiceList.Children.Add(userButton);
                 }
             }
-        }
+            void LogInButton_Click(object sender, RoutedEventArgs e)
+            {
+                Button bufferButton = (Button)sender;
+                int userId = int.Parse(bufferButton.Name.Substring(bufferButton.Name.LastIndexOf("_") + 1));
+
+                User.currentUser = User.LogIn(userId);
+            }
+        }        
         void registerButton_Click(object sender, RoutedEventArgs e)
         {
 
