@@ -6,13 +6,44 @@
         xmlns:local="clr-namespace:Apricat"
         mc:Ignorable="d"
         Title="ApriCat - Login" Height="413" Width="733" Closing="StartUpClosing_LoadMainWindow">
-    <Grid>
-        <GroupBox x:Name="loginGroupBox" Background="Beige">
-            <StackPanel>
-                
-            </StackPanel>
+    <Grid Background="Beige">
+        <GroupBox x:Name="loginGroupBox" Background="Beige" Visibility="Visible">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                           Foreground="SaddleBrown" FontFamily="Century Gothic" FontSize="18">
+                    Привет!<LineBreak/>
+                    Рад снова тебя видеть!
+                </TextBlock>
+                <TextBlock Grid.Row="1" VerticalAlignment="Top" TextAlignment="Center"
+                           FontFamily="Century Gothic" FontSize="16"
+                           Foreground="SaddleBrown">
+                    Какую учётную запись использовать?
+                </TextBlock>
+                <StackPanel x:Name="userChoiceList" Orientation="Horizontal" Grid.Row="1" 
+                            VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                </StackPanel>
+                <Button x:Name="loginButton" Grid.Row="2" Width="120" Height="50"
+                        Content="Войти"
+                        FontFamily="Century Gothic"
+                        FontSize="16"
+                        Background="Beige"
+                        Foreground="SaddleBrown"
+                        BorderBrush="SaddleBrown">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
         </GroupBox>
-        <GroupBox x:Name="registerGroupBox" Background="Beige">
+        <GroupBox x:Name="registerGroupBox" Background="Beige" Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>

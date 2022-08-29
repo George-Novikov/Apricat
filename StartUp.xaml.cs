@@ -26,6 +26,34 @@ namespace Apricat
         public StartUp()
         {
             InitializeComponent();
+            List<User> users = User.GetUsers();
+            if (users.Count == 0)
+            {
+                loginGroupBox.Visibility = Visibility.Collapsed;
+                registerGroupBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                foreach (User user in users)
+                {
+                    ToggleButton userButton = new ToggleButton();
+                    TextBlock userButtonText = new TextBlock();
+                    userButtonText.TextAlignment = TextAlignment.Center;
+                    userButtonText.Text = $"{user.UserName}\n({user.Level})";
+                    userButton.Content = userButtonText;
+                    userButton.Height = 100;
+                    userButton.Width = 100;
+                    Style borderStyle = new Style { TargetType = typeof(Border) };
+                    borderStyle.Setters.Add(new Setter { Property = Border.CornerRadiusProperty, Value = new CornerRadius(15) });
+                    userButton.Resources.Add(borderStyle.TargetType, borderStyle);
+                    userButton.Background = new SolidColorBrush(Colors.Beige);
+                    userButton.Foreground = new SolidColorBrush(Colors.SaddleBrown);
+                    userButton.BorderBrush = new SolidColorBrush(Colors.SaddleBrown);
+                    userButton.HorizontalContentAlignment = HorizontalAlignment.Center;
+                    userButton.HorizontalAlignment = HorizontalAlignment.Center;
+                    userChoiceList.Children.Add(userButton);
+                }
+            }
         }
         void registerButton_Click(object sender, RoutedEventArgs e)
         {

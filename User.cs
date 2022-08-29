@@ -22,8 +22,8 @@ namespace Apricat
             Level = level;
             DailyRate = dailyrate;
             string sqlExpression = @"INSERT INTO Users (UserName, Level)
-                                         VALUES (@UserName, @Level);
-                                         SELECT last_insert_rowid()";
+                                     VALUES (@UserName, @Level);
+                                     SELECT last_insert_rowid()";
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
@@ -51,9 +51,10 @@ namespace Apricat
         {
 
         }
-        static bool CheckUsers()
+        internal static List<User>GetUsers()
         {
-            string sqlExpression = "SELECT * FROM Users";
+            List<User> users = new List<User>();
+            sqlExpression = "SELECT * FROM Users";
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
@@ -62,17 +63,27 @@ namespace Apricat
                 {
                     if (reader.HasRows)
                     {
-                        return true;
+                        while (reader.Read())
+                        {
+                            User user = new User();
+                            user.Id = reader.GetInt32(0);
+                            user.UserName = reader.GetString(1);
+                            user.Level = reader.GetString(2);
+                            user.DailyRate = reader.GetInt32(3);
+                            user.Vocabulary = reader.GetInt32(4);
+                            user.GrammarKnowledge = reader.GetInt32(5);
+                            users.Add(user);
+                        }
                     }
-                    else return false;
                 }
             }
+            return users;
         }
-        static void CreateUser()
+        internal static void RegisterUser()
         {
 
         }
-        static void LogIn()
+        internal static void LogIn()
         {
             User currentUser = new User();
 

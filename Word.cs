@@ -12,14 +12,14 @@ namespace Apricat
         public string Keyword { get; set; }
         public string Transcription { get; set; }
         public string Translation { get; set; }
-
-        public void LoadLessonsFromDB(User user)
+        internal static List<Word> LoadWordsFromDB(User user)
         {
+            int wordsCount = user.DailyRate / 2 + user.DailyRate % 2;
             List<Word> wordList = new List<Word>();
             string sqlExpression = @"SELECT * FROM Words
-                                         WHERE WordId NOT IN
-                                        (SELECT WordId FROM LearnedWords
-                                         WHERE UserId=@UserId)";
+                                     WHERE WordId NOT IN
+                                    (SELECT WordId FROM LearnedWords
+                                     WHERE UserId=@UserId)";
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
@@ -30,7 +30,7 @@ namespace Apricat
                 {
                     if (reader.HasRows)
                     {
-                        while (reader.Read() && wordList.Count < user.DailyRate)
+                        while (reader.Read() && wordList.Count < wordsCount)
                         {
                             Word derivedWord = new Word();
                             derivedWord.Id = reader.GetInt32(0);
@@ -44,21 +44,7 @@ namespace Apricat
                     }
                 }
             }
-        }
-        public override void MarkLearned(User user)
-        {
-            this.Learned = true;
-            string sqlExpression = @"INSERT INTO LearnedWords (WordId, UserId)
-                                     VALUES (@WordId, @UserId)";
-            using (SqliteConnection connection = new SqliteConnection(connectionString))
-            {
-                connection.Open();
-                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
-                SqliteParameter wordIdParam = new SqliteParameter("@WordId", this.Id);
-                command.Parameters.Add(wordIdParam);
-                SqliteParameter userIdParam = new SqliteParameter("@UserId", user.Id);
-                command.ExecuteNonQuery();
-            }
+            return wordList;
         }
     }
 }
