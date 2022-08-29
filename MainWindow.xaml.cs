@@ -25,7 +25,11 @@ namespace Apricat
         public MainWindow()
         {
             InitializeComponent();
-            lessonHeader.Text = "Привет "+User.currentUser.UserName.ToString() + "!";
+            if (User.currentUser is not null)
+            {
+                lessonHeader.Text = "Привет " + User.currentUser.UserName.ToString() + "!";
+            }
+            
         }
 
         void settingsButton_GroupBoxCollapse(object sender, RoutedEventArgs e)

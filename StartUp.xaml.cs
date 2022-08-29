@@ -26,8 +26,8 @@ namespace Apricat
         public StartUp()
         {
             InitializeComponent();
-            User currentUser = new User();
-            List<User> users = User.GetUsers();
+            
+            List<User> users = User.GetUsersFromDB();
             if (users.Count == 0)
             {
                 loginGroupBox.Visibility = Visibility.Collapsed;
@@ -47,7 +47,7 @@ namespace Apricat
                     Style borderStyle = new Style { TargetType = typeof(Border) };
                     borderStyle.Setters.Add(new Setter { Property = Border.CornerRadiusProperty, Value = new CornerRadius(15) });
                     userButton.Resources.Add(borderStyle.TargetType, borderStyle);
-                    userButton.Background = new SolidColorBrush(Colors.Beige);
+                    userButton.Background = new SolidColorBrush(Color.FromRgb(255,253,250));
                     userButton.Foreground = new SolidColorBrush(Colors.SaddleBrown);
                     userButton.BorderBrush = new SolidColorBrush(Colors.SaddleBrown);
                     userButton.HorizontalContentAlignment = HorizontalAlignment.Center;
@@ -62,12 +62,35 @@ namespace Apricat
                 Button bufferButton = (Button)sender;
                 int userId = int.Parse(bufferButton.Name.Substring(bufferButton.Name.LastIndexOf("_") + 1));
 
-                User.currentUser = User.LogIn(userId);
+                User.currentUser = User.GetUserFromDBById(userId);
+                this.Close();
             }
         }        
         void registerButton_Click(object sender, RoutedEventArgs e)
         {
+            string userName = registerTextBox.Text;
+            string userLevel = "Beginner";
+            int dailyRate = (int)dailyRateSlider.Value;
+            if (beginnerButton.IsChecked == true)
+            {
+                userLevel = "Beginner";
+            } else if (elementaryButton.IsChecked == true)
+            {
+                userLevel = "Elementary";
+            } else if (intermediateButton.IsChecked == true)
+            {
+                userLevel = "Intermediate";
+            } else if (upperIntermediateButton.IsChecked == true)
+            {
+                userLevel = "Upper-Intermediate";
+            } else if (advancedButton.IsChecked == true)
+            {
+                userLevel = "Advanced";
+            }
 
+            User newUser = new User(userName, userLevel, dailyRate);
+            User.currentUser = newUser;
+            this.Close();
         }
         void StartUpClosing_LoadMainWindow(object sender, CancelEventArgs e)
         {

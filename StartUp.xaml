@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apricat"
         mc:Ignorable="d"
-        Title="ApriCat - Login" Height="413" Width="733" Closing="StartUpClosing_LoadMainWindow">
+        Title="ApriCat - Login" Height="450" Width="800" Closing="StartUpClosing_LoadMainWindow">
     <Grid Background="Beige">
         <GroupBox x:Name="loginGroupBox" Background="Beige" Visibility="Visible">
             <Grid>
@@ -33,37 +33,40 @@
         <GroupBox x:Name="registerGroupBox" Background="Beige" Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2.5*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="5*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="1.2*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
-                           Foreground="SaddleBrown" FontFamily="Century Gothic" FontSize="18">
+                           Foreground="SaddleBrown" FontFamily="Century Gothic" FontSize="15">
                     Привет! Я — Абрикот!<LineBreak/>
                     Вместе мы научимся говорить по-английски!
                 </TextBlock>
                 <TextBlock Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center"
-                           FontFamily="Century Gothic" FontSize="16"
+                           FontFamily="Century Gothic" FontSize="15"
                            Foreground="SaddleBrown">
                     Как вас зовут?
                 </TextBlock>
-                <TextBox Grid.Row="2" Height="30" Width="150" VerticalAlignment="Top"
+                <TextBox x:Name="registerTextBox" Grid.Row="2" Height="25" Width="150" VerticalAlignment="Top"
                          VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                         FontFamily="Century Gothic" FontSize="16"/>
+                         FontFamily="Century Gothic" FontSize="15" Foreground="SaddleBrown"/>
                 <TextBlock Grid.Row="3" VerticalAlignment="Bottom" TextAlignment="Center"
-                           FontFamily="Century Gothic" FontSize="16"
+                           FontFamily="Century Gothic" FontSize="15"
                            Foreground="SaddleBrown">
                     Какой у вас уровень английского?
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal"
                             HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <ToggleButton x:Name="beginnerButton" Height="100" MinWidth="100" Margin="10"
-                                  Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
+                    <ToggleButton x:Name="beginnerButton" Height="95" MinWidth="95" Margin="10"
+                                  Background="#fffdfa" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
                                   Click="ToggleButtons_UncheckOnClick">
                         <ToggleButton.Content>
                             <TextBlock TextAlignment="Center">
@@ -77,8 +80,8 @@
                             </Style>
                         </ToggleButton.Resources>
                     </ToggleButton>
-                    <ToggleButton x:Name="elementaryButton" Height="100" MinWidth="100" Margin="10"
-                                  Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
+                    <ToggleButton x:Name="elementaryButton" Height="95" MinWidth="95" Margin="10"
+                                  Background="#fffdfa" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
                                   Click="ToggleButtons_UncheckOnClick">
                         <ToggleButton.Content>
                             <TextBlock TextAlignment="Center">
@@ -92,8 +95,8 @@
                             </Style>
                         </ToggleButton.Resources>
                     </ToggleButton>
-                    <ToggleButton x:Name="intermediateButton" Height="100" MinWidth="100" Margin="10"
-                                  Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
+                    <ToggleButton x:Name="intermediateButton" Height="95" MinWidth="95" Margin="10"
+                                  Background="#fffdfa" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
                                   Click="ToggleButtons_UncheckOnClick">
                         <ToggleButton.Content>
                             <TextBlock TextAlignment="Center">
@@ -107,8 +110,8 @@
                             </Style>
                         </ToggleButton.Resources>
                     </ToggleButton>
-                    <ToggleButton x:Name="upperIntermediateButton" Height="100" MinWidth="100" Margin="10"
-                                  Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
+                    <ToggleButton x:Name="upperIntermediateButton" Height="95" MinWidth="95" Margin="10"
+                                  Background="#fffdfa" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
                                   Click="ToggleButtons_UncheckOnClick">
                         <ToggleButton.Content>
                             <TextBlock TextAlignment="Center">
@@ -123,8 +126,8 @@
                             </Style>
                         </ToggleButton.Resources>
                     </ToggleButton>
-                    <ToggleButton x:Name="advancedButton" Height="100" MinWidth="100" Margin="10"
-                                  Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
+                    <ToggleButton x:Name="advancedButton" Height="95" MinWidth="95" Margin="10"
+                                  Background="#fffdfa" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
                                   Click="ToggleButtons_UncheckOnClick">
                         <ToggleButton.Content>
                             <TextBlock TextAlignment="Center">
@@ -139,10 +142,31 @@
                         </ToggleButton.Resources>
                     </ToggleButton>
                 </StackPanel>
-                <Button x:Name="registerButton" Grid.Row="5" Width="120"
+                <TextBlock Grid.Row="5" VerticalAlignment="Center" TextAlignment="Center"
+                           FontFamily="Century Gothic" FontSize="15"
+                           Foreground="SaddleBrown">
+                    Сколько слов в день вы хотели бы учить?
+                </TextBlock>
+                <StackPanel Grid.Row="6" Orientation="Horizontal"
+                            HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <TextBlock VerticalAlignment="Center" Margin="10" FontFamily="Century Gothic"
+                               Foreground="SaddleBrown">
+                        5
+                    </TextBlock>
+                    <Slider x:Name="dailyRateSlider" Value="10" Minimum="5" Maximum="15"
+                        Width="200"  VerticalAlignment="Center" Foreground="SaddleBrown"
+                        IsSnapToTickEnabled="True" Ticks="5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15"
+                        AutoToolTipPlacement="BottomRight" TickPlacement="BottomRight">
+                    </Slider>
+                    <TextBlock VerticalAlignment="Center" Margin="10" FontFamily="Century Gothic"
+                               Foreground="SaddleBrown">
+                        15
+                    </TextBlock>
+                </StackPanel>
+                <Button x:Name="registerButton" Grid.Row="8" Width="120" Click="registerButton_Click"
                         Content="Подтвердить"
                         FontFamily="Century Gothic"
-                        FontSize="16"
+                        FontSize="15"
                         Background="Beige"
                         Foreground="SaddleBrown"
                         BorderBrush="SaddleBrown">

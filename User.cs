@@ -22,9 +22,10 @@ namespace Apricat
             UserName = username;
             Level = level;
             DailyRate = dailyrate;
-            string sqlExpression = @"INSERT INTO Users (UserName, Level)
-                                     VALUES (@UserName, @Level);
-                                     SELECT last_insert_rowid()";
+            sqlExpression = @"INSERT INTO Users
+                             (UserName, Level, DailyRate, Vocabulary, GrammarKnowledge)
+                              VALUES (@UserName, @Level, @DailyRate, 0, 0);
+                              SELECT last_insert_rowid()";
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
@@ -33,6 +34,9 @@ namespace Apricat
                 command.Parameters.Add(usernameParam);
                 SqliteParameter levelParam = new SqliteParameter("@Level", this.Level);
                 command.Parameters.Add(levelParam);
+                SqliteParameter dailyRateParam = new SqliteParameter("DailyRate", this.DailyRate);
+                command.Parameters.Add(dailyRateParam);
+                command.ExecuteNonQuery();
                 Id = command.ExecuteScalar();
             }
         }
@@ -52,7 +56,7 @@ namespace Apricat
         {
 
         }
-        internal static List<User>GetUsers()
+        internal static List<User>GetUsersFromDB()
         {
             List<User> users = new List<User>();
             sqlExpression = "SELECT * FROM Users";
@@ -80,11 +84,7 @@ namespace Apricat
             }
             return users;
         }
-        internal static void RegisterUser()
-        {
-
-        }
-        internal static User LogIn(int id)
+        internal static User GetUserFromDBById(int id)
         {
             User loginUser = new User();
             sqlExpression = @"SELECT * FROM Users
