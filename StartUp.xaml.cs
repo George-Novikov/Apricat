@@ -27,7 +27,7 @@ namespace Apricat
         {
             InitializeComponent();
             
-            List<User> users = User.GetUsersFromDB();
+            List<User> users = User.GetAllUsersFromDB();
             if (users.Count == 0)
             {
                 loginGroupBox.Visibility = Visibility.Collapsed;
@@ -40,18 +40,24 @@ namespace Apricat
                     Button userButton = new Button();
                     TextBlock userButtonText = new TextBlock();
                     userButtonText.TextAlignment = TextAlignment.Center;
-                    userButtonText.Text = $"{user.UserName}\n({user.Level})";
+                    string userLevel = user.Level;
+                    if (userLevel == "Upper-Intermediate")
+                    {
+                        userLevel = "Upper-\nIntermediate";
+                    }
+                    userButtonText.Text = $"{user.UserName}\n({userLevel})";
                     userButton.Content = userButtonText;
-                    userButton.Height = 100;
-                    userButton.Width = 100;
-                    Style borderStyle = new Style { TargetType = typeof(Border) };
-                    borderStyle.Setters.Add(new Setter { Property = Border.CornerRadiusProperty, Value = new CornerRadius(15) });
-                    userButton.Resources.Add(borderStyle.TargetType, borderStyle);
+                    userButton.Height = 95;
+                    userButton.Width = 95;
                     userButton.Background = new SolidColorBrush(Color.FromRgb(255,253,250));
                     userButton.Foreground = new SolidColorBrush(Colors.SaddleBrown);
                     userButton.BorderBrush = new SolidColorBrush(Colors.SaddleBrown);
                     userButton.HorizontalContentAlignment = HorizontalAlignment.Center;
                     userButton.HorizontalAlignment = HorizontalAlignment.Center;
+                    userButton.Margin = new Thickness(10);
+                    Style borderStyle = new Style { TargetType = typeof(Border) };
+                    borderStyle.Setters.Add(new Setter { Property = Border.CornerRadiusProperty, Value = new CornerRadius(15) });
+                    userButton.Resources.Add(borderStyle.TargetType, borderStyle);
                     userButton.Name = "_"+user.Id.ToString();
                     userButton.Click += LogInButton_Click;
                     userChoiceList.Children.Add(userButton);
@@ -62,7 +68,7 @@ namespace Apricat
                 Button bufferButton = (Button)sender;
                 int userId = int.Parse(bufferButton.Name.Substring(bufferButton.Name.LastIndexOf("_") + 1));
 
-                User.currentUser = User.GetUserFromDBById(userId);
+                User.CurrentUser = User.GetUserFromDBById(userId);
                 this.Close();
             }
         }        
@@ -89,7 +95,7 @@ namespace Apricat
             }
 
             User newUser = new User(userName, userLevel, dailyRate);
-            User.currentUser = newUser;
+            User.CurrentUser = newUser;
             this.Close();
         }
         void StartUpClosing_LoadMainWindow(object sender, CancelEventArgs e)

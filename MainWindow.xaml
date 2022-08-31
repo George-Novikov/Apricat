@@ -44,8 +44,10 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <MediaElement />
         </StackPanel>
+        <MediaElement x:Name="mainAnimation" Source="main animation (pause).wmv"
+                      Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom"
+                      LoadedBehavior="Play" UnloadedBehavior="Manual" MediaEnded="mainAnimation_OnEndedPlay"/>
         <GroupBox x:Name="workspaceGroupBox" Grid.Row="1" Grid.Column="1" Background="#fffdfa">
             <Grid>
                 <Grid.RowDefinitions>

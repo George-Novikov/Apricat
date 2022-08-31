@@ -9,7 +9,7 @@ namespace Apricat
 {
     internal class User : DatabaseItem
     {
-        public static User currentUser;
+        public static User CurrentUser;
         public object Id { get; set; }
         public string UserName { get; set; }
         public string Level { get; set; } = "Beginner";
@@ -40,23 +40,31 @@ namespace Apricat
                 Id = command.ExecuteScalar();
             }
         }
-        public void SetLevel()
+        public void GetLevel()
         {
 
         }
-        public void SetDailyRate()
+        public void UpdateLevel()
         {
 
         }
-        public void ShowVocabulary()
+        public void UpdateDailyRate()
         {
 
         }
-        public void ShowGrammarKnowledge()
+        public void ShowLearnedWords()
         {
 
         }
-        internal static List<User>GetUsersFromDB()
+        public void ShowLearnedSentences()
+        {
+
+        }
+        public void ShowLearnedGrammarRules()
+        {
+
+        }
+        internal static List<User>GetAllUsersFromDB()
         {
             List<User> users = new List<User>();
             sqlExpression = "SELECT * FROM Users";

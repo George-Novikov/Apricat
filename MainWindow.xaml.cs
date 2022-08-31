@@ -25,18 +25,26 @@ namespace Apricat
         public MainWindow()
         {
             InitializeComponent();
-            if (User.currentUser is not null)
+            if (User.CurrentUser is not null)
             {
-                lessonHeader.Text = "Привет " + User.currentUser.UserName.ToString() + "!";
+                lessonHeader.Text = "Привет " + User.CurrentUser.UserName.ToString() + "!";
             }
+            //else this.Close();
             
         }
-
-        void settingsButton_GroupBoxCollapse(object sender, RoutedEventArgs e)
+        private void settingsButton_GroupBoxCollapse(object sender, RoutedEventArgs e)
         {
             if (settingsGroupBox.Visibility == Visibility.Collapsed)
                 settingsGroupBox.Visibility = Visibility.Visible;
             else settingsGroupBox.Visibility = Visibility.Collapsed;
+        }
+        private void mainAnimation_OnEndedPlay(object sender, RoutedEventArgs e)
+        {
+            mainAnimation.Position = new TimeSpan(0, 0, 1);
+            mainAnimation.Play();
+        }
+        private void button_MouseEnterBackgroundChange(object sender, MouseEventArgs e)
+        {
         }
     }
 }
