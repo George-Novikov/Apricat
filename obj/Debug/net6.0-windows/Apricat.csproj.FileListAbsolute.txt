@@ -66,3 +66,5 @@ C:\repository\Apricat\obj\Debug\net6.0-windows\Apricat.Properties.Resources.reso
 C:\repository\Apricat\obj\Debug\net6.0-windows\Apricat.csproj.GenerateResource.cache
 C:\repository\Apricat\bin\Debug\net6.0-windows\main animation (pause).wmv
 C:\repository\Apricat\obj\Debug\net6.0-windows\Apricat_Content.g.cs
+C:\repository\Apricat\obj\Debug\net6.0-windows\AnimationResources.baml
+C:\repository\Apricat\obj\Debug\net6.0-windows\App.baml

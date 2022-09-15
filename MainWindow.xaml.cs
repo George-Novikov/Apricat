@@ -38,11 +38,6 @@ namespace Apricat
                 settingsGroupBox.Visibility = Visibility.Visible;
             else settingsGroupBox.Visibility = Visibility.Collapsed;
         }
-        private void mainAnimation_OnEndedPlay(object sender, RoutedEventArgs e)
-        {
-            mainAnimation.Position = new TimeSpan(0, 0, 1);
-            mainAnimation.Play();
-        }
         private void button_MouseEnterBackgroundChange(object sender, MouseEventArgs e)
         {
         }

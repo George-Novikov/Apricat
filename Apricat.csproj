@@ -9,6 +9,10 @@
 
   <ItemGroup>
     <None Remove="main animation %28pause%29.wmv" />
+    <None Remove="main animation frames\main animation 1.png" />
+    <None Remove="main animation frames\main animation 2.png" />
+    <None Remove="main animation frames\main animation 3.png" />
+    <None Remove="main animation frames\main animation 4.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +23,21 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="main animation frames\main animation 1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="main animation frames\main animation 2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="main animation frames\main animation 3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="main animation frames\main animation 4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

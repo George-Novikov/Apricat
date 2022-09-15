@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Apricat
 {
-    internal class Advice
+    internal class Advice : DatabaseItem
     {
     }
 }

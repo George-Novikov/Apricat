@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apricat"
         mc:Ignorable="d"
-        Title="MainWindow" Height="667" Width="1187" >
+        Title="Apricat" Height="667" Width="1187" >
     <Grid ShowGridLines="False" Background="FloralWhite">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -25,6 +25,20 @@
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border x:Name="buttonBorder">
+                            <ContentControl Content="К урокам"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="buttonBorder" Property="Background" Value="PeachPuff"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
             </Button>
             <Button x:Name="repetitionButton" MinHeight="50" MinWidth="110" Margin="3"
                     FontSize="16" FontFamily="Century Gothic" Content="Повторение"
@@ -45,9 +59,17 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
-        <MediaElement x:Name="mainAnimation" Source="main animation (pause).wmv"
-                      Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom"
-                      LoadedBehavior="Play" UnloadedBehavior="Manual" MediaEnded="mainAnimation_OnEndedPlay"/>
+        <Image Grid.Row="1" VerticalAlignment="Bottom">
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <StaticResourceExtension ResourceKey="mainAnimation"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
         <GroupBox x:Name="workspaceGroupBox" Grid.Row="1" Grid.Column="1" Background="#fffdfa">
             <Grid>
                 <Grid.RowDefinitions>
