@@ -10,5 +10,9 @@ namespace Apricat
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string ExerciseText { get; set; }
+        public string RightAnswer { get; set; }
+        public string WrongAnswer1 { get; set; }
+        public string WrongAnswer2 { get; set; }
     }
 }

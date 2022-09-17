@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Apricat
 {
-    internal class DatabaseItem
+    public class DatabaseItem
     {
         public static string connectionString = "Data Source=lessons.db";
         public static string sqlExpression = "";
