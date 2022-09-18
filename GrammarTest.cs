@@ -14,5 +14,6 @@ namespace Apricat
         public string RightAnswer { get; set; }
         public string WrongAnswer1 { get; set; }
         public string WrongAnswer2 { get; set; }
+        public string AudioPath { get; set; }
     }
 }

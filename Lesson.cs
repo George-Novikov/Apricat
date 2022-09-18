@@ -10,7 +10,6 @@ namespace Apricat
     internal class Lesson : DatabaseItem
     {
         public int Id { get; set; }
-        public bool Learned { get; set; } = false;
         public string Level { get; set; }
         public string AudioPath { get; set; }
         public void LoadLessonsFromDB(User user)
@@ -22,7 +21,6 @@ namespace Apricat
         }
         internal void MarkLearned(User user, Lesson lesson)
         {
-            this.Learned = true;
             if (lesson is Word)
             {
                 sqlExpression = @"INSERT INTO LearnedWords (WordId, UserId)
