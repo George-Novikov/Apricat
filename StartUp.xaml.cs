@@ -28,6 +28,10 @@ namespace Apricat
             InitializeComponent();
             
             List<User> users = User.GetAllUsersFromDB();
+            GenerateLoginButtons(users);
+        }
+        void GenerateLoginButtons(List<User> users)
+        {
             if (users.Count == 0)
             {
                 loginGroupBox.Visibility = Visibility.Collapsed;
@@ -40,43 +44,49 @@ namespace Apricat
                     Button userButton = new Button();
                     TextBlock userButtonText = new TextBlock();
                     userButtonText.TextAlignment = TextAlignment.Center;
+
                     string userLevel = user.Level;
                     if (userLevel == "Upper-Intermediate")
                     {
                         userLevel = "Upper-\nIntermediate";
                     }
+
                     userButtonText.Text = $"{user.UserName}\n({userLevel})";
                     userButton.Content = userButtonText;
+
                     userButton.Height = 95;
                     userButton.Width = 95;
-                    userButton.Background = new SolidColorBrush(Color.FromRgb(255,253,250));
+                    userButton.Background = new SolidColorBrush(Color.FromRgb(255, 253, 250));
                     userButton.Foreground = new SolidColorBrush(Colors.SaddleBrown);
                     userButton.BorderBrush = new SolidColorBrush(Colors.SaddleBrown);
                     userButton.HorizontalContentAlignment = HorizontalAlignment.Center;
                     userButton.HorizontalAlignment = HorizontalAlignment.Center;
                     userButton.Margin = new Thickness(10);
+
                     Style borderStyle = new Style { TargetType = typeof(Border) };
                     borderStyle.Setters.Add(new Setter { Property = Border.CornerRadiusProperty, Value = new CornerRadius(15) });
                     userButton.Resources.Add(borderStyle.TargetType, borderStyle);
-                    userButton.Name = "_"+user.Id.ToString();
+
+                    userButton.Name = "_" + user.Id.ToString();
                     userButton.Click += LogInButton_Click;
                     userChoiceList.Children.Add(userButton);
                 }
             }
-            void LogInButton_Click(object sender, RoutedEventArgs e)
-            {
-                Button bufferButton = (Button)sender;
-                int userId = int.Parse(bufferButton.Name.Substring(bufferButton.Name.LastIndexOf("_") + 1));
+        }
+        void LogInButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button bufferButton = (Button)sender;
+            int userId = int.Parse(bufferButton.Name.Substring(bufferButton.Name.LastIndexOf("_") + 1));
 
-                User.CurrentUser = User.GetUserFromDBById(userId);
-                this.Close();
-            }
-        }        
+            User.CurrentUser = User.GetUserFromDBById(userId);
+            this.Close();
+        }
         void registerButton_Click(object sender, RoutedEventArgs e)
         {
             string userName = registerTextBox.Text;
             string userLevel = "Beginner";
             int dailyRate = (int)dailyRateSlider.Value;
+
             if (beginnerButton.IsChecked == true)
             {
                 userLevel = "Beginner";
@@ -101,7 +111,10 @@ namespace Apricat
         void StartUpClosing_LoadMainWindow(object sender, CancelEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            if (User.CurrentUser != null)
+            {
+                mainWindow.Show();
+            }            
         }
         void ToggleButtons_UncheckOnClick(object sender, RoutedEventArgs e)
         {

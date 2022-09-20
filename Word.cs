@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Apricat
 {
-    internal class Word : Lesson
+    public class Word : Lesson
     {
         public string Keyword { get; set; }
         public string Transcription { get; set; }

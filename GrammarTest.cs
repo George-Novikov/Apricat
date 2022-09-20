@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Apricat
 {
-    internal class GrammarTest
+    public class GrammarTest
     {
         public int Id { get; set; }
         public string Title { get; set; }

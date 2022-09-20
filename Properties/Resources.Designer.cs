@@ -59,15 +59,5 @@ namespace Apricat.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] main_animation__pause_ {
-            get {
-                object obj = ResourceManager.GetObject("main_animation__pause_", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

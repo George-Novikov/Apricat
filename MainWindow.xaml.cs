@@ -28,8 +28,7 @@ namespace Apricat
             if (User.CurrentUser is not null)
             {
                 lessonHeader.Text = "Привет " + User.CurrentUser.UserName.ToString() + "!";
-            }
-            //else this.Close();
+            } else this.Close();
             
         }
         private void settingsButton_GroupBoxCollapse(object sender, RoutedEventArgs e)

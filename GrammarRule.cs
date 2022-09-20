@@ -8,7 +8,7 @@ using Microsoft.Data.Sqlite;
 
 namespace Apricat
 {
-    internal class GrammarRule : Lesson
+    public class GrammarRule : Lesson
     {
         public string Title { get; set; }
         public string Content { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Apricat
 {
-    internal class Sentence : Lesson
+    public class Sentence : Lesson
     {
         internal string MissingWord { get; set; }
         internal string IncompleteSentence { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Apricat
 {
-    internal class Lesson : DatabaseItem
+    public abstract class Lesson : DatabaseItem
     {
         public int Id { get; set; }
         public string Level { get; set; }

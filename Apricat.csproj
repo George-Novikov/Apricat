@@ -8,17 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="main animation %28pause%29.wmv" />
     <None Remove="main animation frames\main animation 1.png" />
     <None Remove="main animation frames\main animation 2.png" />
     <None Remove="main animation frames\main animation 3.png" />
     <None Remove="main animation frames\main animation 4.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="main animation (pause).wmv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>

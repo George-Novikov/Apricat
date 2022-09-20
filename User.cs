@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Apricat
 {
-    internal class User : DatabaseItem
+    public class User : DatabaseItem
     {
         public static User CurrentUser;
         public object Id { get; set; }
@@ -22,6 +22,7 @@ namespace Apricat
             UserName = username;
             Level = level;
             DailyRate = dailyrate;
+
             sqlExpression = @"INSERT INTO Users
                              (UserName, Level, DailyRate, Vocabulary, GrammarKnowledge)
                               VALUES (@UserName, @Level, @DailyRate, 0, 0);
@@ -36,7 +37,6 @@ namespace Apricat
                 command.Parameters.Add(levelParam);
                 SqliteParameter dailyRateParam = new SqliteParameter("DailyRate", this.DailyRate);
                 command.Parameters.Add(dailyRateParam);
-                command.ExecuteNonQuery();
                 Id = command.ExecuteScalar();
             }
         }
