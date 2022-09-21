@@ -16,8 +16,8 @@ namespace Apricat
         {
             List<Word> words = Word.LoadWordsFromDB(user);
             List<Sentence> sentences = Sentence.LoadSentencesFromDB(user);
-            //GrammarRule
-            //GrammarTest
+            GrammarRule grammarRule = GrammarRule.LoadRuleFromDB(user);
+            GrammarTest grammarTest = GrammarTest.LoadTestFromDB(grammarRule);
         }
         internal void MarkLearned(User user, Lesson lesson)
         {

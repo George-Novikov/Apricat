@@ -6,6 +6,18 @@
         xmlns:local="clr-namespace:Apricat"
         mc:Ignorable="d"
         Title="Apricat" Height="667" Width="1187" >
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="MinWidth" Value="110"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="Background" Value="Beige"/>
+            <Setter Property="Foreground" Value="SaddleBrown"/>
+            <Setter Property="BorderBrush" Value="SaddleBrown"/>
+        </Style>
+    </Window.Resources>
     <Grid ShowGridLines="False" Background="FloralWhite">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -17,41 +29,21 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button x:Name="lessonButton" MinHeight="50" MinWidth="110" Margin="3"
-                    FontSize="16" FontFamily="Century Gothic" Content="К урокам"
-                    Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="15"/>
-                    </Style>
-                </Button.Resources>
-                <Button.Template>
-                    <ControlTemplate>
-                        <Border x:Name="buttonBorder">
-                            <ContentControl Content="К урокам"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="buttonBorder" Property="Background" Value="PeachPuff"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button x:Name="repetitionButton" MinHeight="50" MinWidth="110" Margin="3"
-                    FontSize="16" FontFamily="Century Gothic" Content="Повторение"
-                    Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown">
+            <Button x:Name="lessonButton" Content="К урокам">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="progressButton" MinHeight="50" MinWidth="110" Margin="3"
-                    FontSize="16" FontFamily="Century Gothic" Content="Мой прогресс" 
-                    Background="Beige" Foreground="SaddleBrown" BorderBrush="SaddleBrown">
+            <Button x:Name="repetitionButton" Content="Повторение">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="progressButton" Content="Мой прогресс">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
@@ -59,7 +51,7 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
-        <Image Grid.Row="1" VerticalAlignment="Bottom">
+        <Image x:Name="mainAnimationImage" Grid.Row="1" VerticalAlignment="Bottom">
             <Image.Triggers>
                 <EventTrigger RoutedEvent="Loaded">
                     <BeginStoryboard>
@@ -70,31 +62,67 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <GroupBox x:Name="workspaceGroupBox" Grid.Row="1" Grid.Column="1" Background="#fffdfa">
+        <GroupBox x:Name="workspaceGroupBox"
+                  Grid.Row="1" Grid.Column="1"
+                  Background="#fffdfa"
+                  Visibility="Hidden">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="7*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="lessonHeader" Grid.Row="0" Text="Урок 1"
+                <TextBlock x:Name="lessonHeader" Grid.Row="0"
                            HorizontalAlignment="Left" Margin="20"
                            FontSize="16" FontFamily="Verdana" FontWeight="Bold"
                            Foreground="SaddleBrown"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="2"
+                            HorizontalAlignment="Center">
+                    <Button Content="Ответить"/>
+                </StackPanel>
             </Grid>
         </GroupBox>
-        <TextBlock Text="Абрикот" Foreground="SaddleBrown" FontSize="22" FontWeight="Bold" Grid.Column="0"
-                 Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock x:Name="workspaceTextBlock" Grid.Row="1" Grid.Column="1" Foreground="SaddleBrown"/>
-        <Button x:Name="settingsButton" Content="Settings" Grid.Column="3" Click="settingsButton_GroupBoxCollapse"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Background="Beige" Foreground="SaddleBrown" Height="50" Width="50"/>
-        <GroupBox x:Name="settingsGroupBox" MinHeight="200" MinWidth="300" Foreground="SaddleBrown"
-                  Visibility="Collapsed" Background="Beige" Grid.Row="1" Grid.Column="1"
-                  HorizontalAlignment="Center" VerticalAlignment="Center">
-            <GroupBox.Header>
-                Настройки
-            </GroupBox.Header>
+        <GroupBox x:Name="progressGroupBox"
+                  Grid.Row="1" Grid.Column="1"
+                  Background="#fffdfa"
+                  Visibility="VIsible">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="helloTextBlock" Grid.Row="0"
+                           HorizontalAlignment="Left" Margin="20"
+                           FontSize="16" FontFamily="Verdana" FontWeight="Bold"
+                           Foreground="SaddleBrown"/>
+                <TextBlock x:Name="wordsCount" Grid.Row="1"/>
+                <TextBlock x:Name="rulesCount" Grid.Row="2"/>
+                <TextBlock x:Name="userLevel" Grid.Row="3"/>
+                <TextBlock x:Name="adviceTextBlock" Grid.Row="4"/>
+            </Grid>
+        </GroupBox>
+        <TextBlock Text="Абрикот"
+                   FontSize="24" FontWeight="Black" FontFamily="Century Gothic"
+                   Foreground="SaddleBrown" Grid.Column="0" Grid.Row="0" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="workspaceTextBlock"
+                   Grid.Row="1" Grid.Column="1"
+                   Foreground="SaddleBrown"/>
+        <Button x:Name="settingsButton" Click="settingsButton_GroupBoxCollapse"
+                HorizontalAlignment="Right" VerticalAlignment="Center"
+                MinHeight="30" MinWidth="30" Grid.Column="3" BorderBrush="Beige">
+            <Button.Background>
+                <ImageBrush ImageSource="settings.png" Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+        <GroupBox x:Name="settingsGroupBox" Visibility="Collapsed"
+                  MinHeight="200" MinWidth="300"
+                  Foreground="SaddleBrown" Background="Beige" 
+                  HorizontalAlignment="Center" VerticalAlignment="Center" 
+                  Grid.Row="1" Grid.Column="1" Header="Настройки">
         </GroupBox>
     </Grid>
 </Window>

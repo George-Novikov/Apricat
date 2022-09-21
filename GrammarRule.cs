@@ -12,7 +12,7 @@ namespace Apricat
     {
         public string Title { get; set; }
         public string Content { get; set; }
-        public GrammarRule LoadRuleFromDB(User user)
+        public static GrammarRule LoadRuleFromDB(User user)
         {
             sqlExpression = @"SELECT * FROM GrammarRules
                               WHERE GrammarRuleId NOT IN

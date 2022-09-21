@@ -40,59 +40,7 @@ namespace Apricat
                 Id = command.ExecuteScalar();
             }
         }
-        public void GetLevel()
-        {
-
-        }
-        public void UpdateLevel()
-        {
-
-        }
-        public void UpdateDailyRate()
-        {
-
-        }
-        public void ShowLearnedWords()
-        {
-
-        }
-        public void ShowLearnedSentences()
-        {
-
-        }
-        public void ShowLearnedGrammarRules()
-        {
-
-        }
-        internal static List<User>GetAllUsersFromDB()
-        {
-            List<User> users = new List<User>();
-            sqlExpression = "SELECT * FROM Users";
-            using (SqliteConnection connection = new SqliteConnection(connectionString))
-            {
-                connection.Open();
-                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
-                using (SqliteDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            User user = new User();
-                            user.Id = reader.GetInt32(0);
-                            user.UserName = reader.GetString(1);
-                            user.Level = reader.GetString(2);
-                            user.DailyRate = reader.GetInt32(3);
-                            user.Vocabulary = reader.GetInt32(4);
-                            user.GrammarKnowledge = reader.GetInt32(5);
-                            users.Add(user);
-                        }
-                    }
-                }
-            }
-            return users;
-        }
-        internal static User GetUserFromDBById(int id)
+        public static User GetUserFromDBById(int id)
         {
             User loginUser = new User();
             sqlExpression = @"SELECT * FROM Users
@@ -120,6 +68,34 @@ namespace Apricat
                 }
             }
             return loginUser;
+        }
+        public static List<User>GetAllUsersFromDB()
+        {
+            List<User> users = new List<User>();
+            sqlExpression = "SELECT * FROM Users";
+            using (SqliteConnection connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            User user = new User();
+                            user.Id = reader.GetInt32(0);
+                            user.UserName = reader.GetString(1);
+                            user.Level = reader.GetString(2);
+                            user.DailyRate = reader.GetInt32(3);
+                            user.Vocabulary = reader.GetInt32(4);
+                            user.GrammarKnowledge = reader.GetInt32(5);
+                            users.Add(user);
+                        }
+                    }
+                }
+            }
+            return users;
         }
     }
 }

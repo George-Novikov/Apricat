@@ -27,9 +27,9 @@ namespace Apricat
             InitializeComponent();
             if (User.CurrentUser is not null)
             {
-                lessonHeader.Text = "Привет " + User.CurrentUser.UserName.ToString() + "!";
+                helloTextBlock.Text = "Привет " + User.CurrentUser.UserName.ToString() + "!";
             } else this.Close();
-            
+            DataContext = new ViewModel();
         }
         private void settingsButton_GroupBoxCollapse(object sender, RoutedEventArgs e)
         {

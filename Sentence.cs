@@ -9,14 +9,15 @@ namespace Apricat
 {
     public class Sentence : Lesson
     {
-        internal string MissingWord { get; set; }
-        internal string IncompleteSentence { get; set; }
-        internal string Translation { get; set; }
-        internal static List<Sentence> LoadSentencesFromDB(User user)
+        public string MissingWord { get; set; }
+        public string SentenceLeftPart { get; set; }
+        public string SentenceRightPart { get; set; }
+        public string Translation { get; set; }
+        public static List<Sentence> LoadSentencesFromDB(User user)
         {
             int sentenceCount = user.DailyRate / 2;
             List<Sentence> sentenceList = new List<Sentence>();
-            string sqlExpression = @"SELECT * FROM Sentences
+            sqlExpression = @"SELECT * FROM Sentences
                                      WHERE SentenceId NOT IN
                                     (SELECT SentenceId FROM LearnedSentences
                                      WHERE UserId=@UserId)";
@@ -35,10 +36,11 @@ namespace Apricat
                             Sentence derivedSentence = new Sentence();
                             derivedSentence.Id = reader.GetInt32(0);
                             derivedSentence.MissingWord = reader.GetString(1);
-                            derivedSentence.IncompleteSentence = reader.GetString(2);
-                            derivedSentence.Translation = reader.GetString(3);
-                            derivedSentence.Level = reader.GetString(4);
-                            derivedSentence.AudioPath = reader.GetString(5);
+                            derivedSentence.SentenceLeftPart = reader.GetString(2);
+                            derivedSentence.SentenceRightPart = reader.GetString(3);
+                            derivedSentence.Translation = reader.GetString(4);
+                            derivedSentence.Level = reader.GetString(5);
+                            derivedSentence.AudioPath = reader.GetString(6);
                             sentenceList.Add(derivedSentence);
                         }
                     }
