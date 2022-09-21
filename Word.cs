@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +13,10 @@ namespace Apricat
         public string Keyword { get; set; }
         public string Transcription { get; set; }
         public string Translation { get; set; }
-        public static List<Word> LoadWordsFromDB(User user)
+        public static ObservableCollection<Word> LoadWordsFromDB(User user)
         {
             int wordsCount = user.DailyRate / 2 + user.DailyRate % 2;
-            List<Word> wordList = new List<Word>();
+            ObservableCollection<Word> wordList = new ObservableCollection<Word>();
             sqlExpression = @"SELECT * FROM Words
                                      WHERE WordId NOT IN
                                     (SELECT WordId FROM LearnedWords

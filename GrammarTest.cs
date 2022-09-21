@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace Apricat
 {
-    public class GrammarTest : DatabaseItem
+    public class GrammarTest : Lesson
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string ExerciseText { get; set; }
         public string RightAnswer { get; set; }
         public string WrongAnswer1 { get; set; }
         public string WrongAnswer2 { get; set; }
-        public string AudioPath { get; set; }
         public static GrammarTest LoadTestFromDB(GrammarRule grammarRule)
         {
             GrammarTest grammarTest = new GrammarTest();

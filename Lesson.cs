@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +13,27 @@ namespace Apricat
         public int Id { get; set; }
         public string Level { get; set; }
         public string AudioPath { get; set; }
-        public void LoadLessonsFromDB(User user)
+        public static ObservableCollection<Lesson> LoadLessonsFromDB(User user)
         {
-            List<Word> words = Word.LoadWordsFromDB(user);
-            List<Sentence> sentences = Sentence.LoadSentencesFromDB(user);
+            ObservableCollection<Lesson> lessons = new ObservableCollection<Lesson>();
+            ObservableCollection<Word> words = Word.LoadWordsFromDB(user);
+            foreach (Word word in words)
+            {
+                lessons.Add(word);
+            }
+            ObservableCollection<Sentence> sentences = Sentence.LoadSentencesFromDB(user);
+            foreach (Sentence sentence in sentences)
+            {
+                lessons.Add(sentence);
+            }
             GrammarRule grammarRule = GrammarRule.LoadRuleFromDB(user);
+            lessons.Add(grammarRule);
             GrammarTest grammarTest = GrammarTest.LoadTestFromDB(grammarRule);
+            lessons.Add(grammarTest);
+
+            return lessons;
         }
-        internal void MarkLearned(User user, Lesson lesson)
+        public void MarkLearned(User user, Lesson lesson)
         {
             if (lesson is Word)
             {

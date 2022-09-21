@@ -17,6 +17,9 @@
             <Setter Property="Foreground" Value="SaddleBrown"/>
             <Setter Property="BorderBrush" Value="SaddleBrown"/>
         </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="22"/>
+        </Style>
     </Window.Resources>
     <Grid ShowGridLines="False" Background="FloralWhite">
         <Grid.ColumnDefinitions>
@@ -62,30 +65,51 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <GroupBox x:Name="workspaceGroupBox"
+        <GroupBox x:Name="workplaceGroupBox"
                   Grid.Row="1" Grid.Column="1"
                   Background="#fffdfa"
-                  Visibility="Hidden">
+                  Visibility="Visible">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="7*"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="lessonHeader" Grid.Row="0"
                            HorizontalAlignment="Left" Margin="20"
-                           FontSize="16" FontFamily="Verdana" FontWeight="Bold"
-                           Foreground="SaddleBrown"/>
+                           FontSize="18" FontFamily="Verdana" FontWeight="Bold"
+                           Foreground="SaddleBrown" Text="{Binding Header}"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="2"
                             HorizontalAlignment="Center">
-                    <Button Content="Ответить"/>
+                    <TextBlock Text="{Binding Keyword}"/>
+                    <TextBlock Text="{Binding SentenceLeftPart}"/>
+                    <TextBlock Text="{Binding Space}"/>
+                    <TextBlock Text="{Binding SentenceRightPart}"/>
                 </StackPanel>
+                <Button Grid.Row="5" BorderBrush="FloralWhite" Click="playButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="play.png" Stretch="Uniform"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="nextLessonButton" Content="Ответить"
+                        HorizontalAlignment="Right" Width="120" Grid.Row="7" Margin="5">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="progressGroupBox"
                   Grid.Row="1" Grid.Column="1"
                   Background="#fffdfa"
-                  Visibility="VIsible">
+                  Visibility="Hidden">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -96,7 +120,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="helloTextBlock" Grid.Row="0"
                            HorizontalAlignment="Left" Margin="20"
-                           FontSize="16" FontFamily="Verdana" FontWeight="Bold"
+                           FontSize="18" FontFamily="Verdana" FontWeight="Bold"
                            Foreground="SaddleBrown"/>
                 <TextBlock x:Name="wordsCount" Grid.Row="1"/>
                 <TextBlock x:Name="rulesCount" Grid.Row="2"/>
@@ -108,9 +132,6 @@
                    FontSize="24" FontWeight="Black" FontFamily="Century Gothic"
                    Foreground="SaddleBrown" Grid.Column="0" Grid.Row="0" 
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock x:Name="workspaceTextBlock"
-                   Grid.Row="1" Grid.Column="1"
-                   Foreground="SaddleBrown"/>
         <Button x:Name="settingsButton" Click="settingsButton_GroupBoxCollapse"
                 HorizontalAlignment="Right" VerticalAlignment="Center"
                 MinHeight="30" MinWidth="30" Grid.Column="3" BorderBrush="Beige">

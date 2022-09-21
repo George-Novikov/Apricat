@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,10 +14,10 @@ namespace Apricat
         public string SentenceLeftPart { get; set; }
         public string SentenceRightPart { get; set; }
         public string Translation { get; set; }
-        public static List<Sentence> LoadSentencesFromDB(User user)
+        public static ObservableCollection<Sentence> LoadSentencesFromDB(User user)
         {
             int sentenceCount = user.DailyRate / 2;
-            List<Sentence> sentenceList = new List<Sentence>();
+            ObservableCollection<Sentence> sentenceList = new ObservableCollection<Sentence>();
             sqlExpression = @"SELECT * FROM Sentences
                                      WHERE SentenceId NOT IN
                                     (SELECT SentenceId FROM LearnedSentences
