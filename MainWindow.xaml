@@ -32,7 +32,7 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button x:Name="lessonButton" Content="К урокам">
+            <Button x:Name="lessonButton" Content="К урокам" Click="lessonButton_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
@@ -85,10 +85,11 @@
                            FontSize="18" FontFamily="Verdana" FontWeight="Bold"
                            Foreground="SaddleBrown" Text="{Binding Header}"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="2"
-                            HorizontalAlignment="Center">
+                            HorizontalAlignment="Center" DataContext="{Binding Lessons}">
                     <TextBlock Text="{Binding Keyword}"/>
                     <TextBlock Text="{Binding SentenceLeftPart}"/>
-                    <TextBlock Text="{Binding Space}"/>
+                    <TextBlock x:Name="spaceTextBlock" Text="{Binding Space}"/>
+                    <TextBox x:Name="spaceTextBox" Visibility="Hidden"/>
                     <TextBlock Text="{Binding SentenceRightPart}"/>
                 </StackPanel>
                 <Button Grid.Row="5" BorderBrush="FloralWhite" Click="playButton_Click">

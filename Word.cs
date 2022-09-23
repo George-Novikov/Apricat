@@ -18,9 +18,9 @@ namespace Apricat
             int wordsCount = user.DailyRate / 2 + user.DailyRate % 2;
             ObservableCollection<Word> wordList = new ObservableCollection<Word>();
             sqlExpression = @"SELECT * FROM Words
-                                     WHERE WordId NOT IN
-                                    (SELECT WordId FROM LearnedWords
-                                     WHERE UserId=@UserId)";
+                              WHERE WordId NOT IN
+                             (SELECT WordId FROM LearnedWords
+                              WHERE UserId=@UserId)";
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
                 connection.Open();

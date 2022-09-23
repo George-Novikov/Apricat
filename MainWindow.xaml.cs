@@ -28,11 +28,14 @@ namespace Apricat
         public MainWindow()
         {
             InitializeComponent();
+
             if (User.CurrentUser is not null)
             {
                 helloTextBlock.Text = "Привет " + User.CurrentUser.UserName.ToString() + "!";
             } else this.Close();
+
             viewModel = new ViewModel();
+
             DataContext = viewModel; ;
         }
         private void settingsButton_GroupBoxCollapse(object sender, RoutedEventArgs e)
@@ -45,37 +48,14 @@ namespace Apricat
         {
             //CheckIfCorrect(lesson);
         }
-        public void PrepareWorkplace(ObservableCollection<Lesson> lessons)
+        public void lessonButton_Click(object sender, RoutedEventArgs e)
         {
-            int currentSession = lessons.Count;
-            if (currentSession > 0)
-            {
-                foreach (Lesson lesson in lessons)
-                {
-                    if (lesson.GetType() == typeof(Sentence))
-                    {
-                        
-
-                    }
-                    else if (lesson.GetType() == typeof(GrammarRule))
-                    {
-
-                    }
-                    else if (lesson.GetType() == typeof(GrammarTest))
-                    {
-
-                    }
-                    else
-                    {
-                        StudyWord(lesson);
-                        --currentSession;
-                    }
-                }
-            }
-            else
-            {
-                //nextLessonButton.IsActive = False;
-            }
+            viewModel.LoadLessonsFromDB(User.CurrentUser);
+        }
+        public void space_MouseDown(object sender, MouseEventArgs e)
+        {
+            spaceTextBox.Visibility = Visibility.Visible;
+            spaceTextBlock.Visibility = Visibility.Hidden;
         }
         public void playButton_Click(object sender, RoutedEventArgs e)
         {
@@ -92,23 +72,6 @@ namespace Apricat
                     MessageBox.Show(ex.Message);
                 }
             }
-        }
-        public void StudyWord(Lesson lesson)
-        {
-            Word word = (Word)lesson;
-            lessonHeader.Text = word.Keyword;
-        }
-        public void StudySentence()
-        {
-            lessonHeader.Text = "Заполните недостающее слово";
-        }
-        public void StudyGrammar()
-        {
-
-        }
-        public void TakeATest()
-        {
-
         }
     }
 }

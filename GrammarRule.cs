@@ -17,7 +17,7 @@ namespace Apricat
             sqlExpression = @"SELECT * FROM GrammarRules
                               WHERE GrammarRuleId NOT IN
                              (SELECT GrammarRuleId FROM LearnedGrammar
-                              WHERE UserId=@UserId";
+                              WHERE UserId=@UserId)";
             GrammarRule rule = new GrammarRule();
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
@@ -29,11 +29,14 @@ namespace Apricat
                 {
                     if (reader.HasRows)
                     {
-                        rule.Id = reader.GetInt32(0);
-                        rule.Title = reader.GetString(1);
-                        rule.Content = reader.GetString(2);
-                        rule.Level = reader.GetString(3);
-                        rule.AudioPath = reader.GetString(4);
+                        while (reader.Read())
+                        {
+                            rule.Id = reader.GetInt32(0);
+                            rule.Title = reader.GetString(1);
+                            rule.Content = reader.GetString(2);
+                            rule.Level = reader.GetString(3);
+                            rule.AudioPath = reader.GetString(4);
+                        }
                     }
                 }
             }

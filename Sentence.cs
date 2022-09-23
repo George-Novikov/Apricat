@@ -19,9 +19,9 @@ namespace Apricat
             int sentenceCount = user.DailyRate / 2;
             ObservableCollection<Sentence> sentenceList = new ObservableCollection<Sentence>();
             sqlExpression = @"SELECT * FROM Sentences
-                                     WHERE SentenceId NOT IN
-                                    (SELECT SentenceId FROM LearnedSentences
-                                     WHERE UserId=@UserId)";
+                              WHERE SentenceId NOT IN
+                             (SELECT SentenceId FROM LearnedSentences
+                              WHERE UserId=@UserId)";
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
