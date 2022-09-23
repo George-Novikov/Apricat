@@ -97,5 +97,25 @@ namespace Apricat
             }
             return users;
         }
+        public void UpdateUserLevel()
+        {
+
+        }
+        public void UpdateUserDailyRate()
+        {
+
+        }
+        public void CountLearnedWords()
+        {
+
+        }
+        public void CountLearnedSentences()
+        {
+
+        }
+        public void CountLearnedGrammarRules()
+        {
+
+        }
     }
 }

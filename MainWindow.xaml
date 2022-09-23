@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apricat"
         mc:Ignorable="d"
-        Title="Apricat" Height="667" Width="1187" >
+        Title="Apricat" Height="667" Width="1187" x:Name="mainWindow">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="MinHeight" Value="50"/>
@@ -19,6 +19,7 @@
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Foreground" Value="SaddleBrown"/>
         </Style>
     </Window.Resources>
     <Grid ShowGridLines="False" Background="FloralWhite">
@@ -46,7 +47,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="progressButton" Content="Мой прогресс">
+            <Button x:Name="progressButton" Content="Мой прогресс" Click="progressButton_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
@@ -68,37 +69,39 @@
         <GroupBox x:Name="workplaceGroupBox"
                   Grid.Row="1" Grid.Column="1"
                   Background="#fffdfa"
-                  Visibility="Visible">
+                  Visibility="Hidden">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="2*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="lessonHeader" Grid.Row="0"
                            HorizontalAlignment="Left" Margin="20"
                            FontSize="18" FontFamily="Verdana" FontWeight="Bold"
                            Foreground="SaddleBrown" Text="{Binding Header}"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="2"
-                            HorizontalAlignment="Center" DataContext="{Binding Lessons}">
-                    <TextBlock Text="{Binding Keyword}"/>
+                            HorizontalAlignment="Center">
+                    <TextBlock x:Name="keywordTextBlock" Text="{Binding Keyword}"/>
                     <TextBlock Text="{Binding SentenceLeftPart}"/>
-                    <TextBlock x:Name="spaceTextBlock" Text="{Binding Space}"/>
-                    <TextBox x:Name="spaceTextBox" Visibility="Hidden"/>
+                    <TextBlock x:Name="spaceTextBlock" Text="{Binding Space}" MouseDown="space_MouseDown"/>
+                    <TextBox x:Name="inputTextBox" Height="20" Width="30" Visibility="Collapsed"/>
                     <TextBlock Text="{Binding SentenceRightPart}"/>
                 </StackPanel>
+                <TextBlock Text="{Binding Transcription}"/>
+                <TextBlock Text="{Binding Translation}"/>
                 <Button Grid.Row="5" BorderBrush="FloralWhite" Click="playButton_Click">
                     <Button.Background>
-                        <ImageBrush ImageSource="play.png" Stretch="Uniform"/>
+                        <ImageBrush ImageSource="playbutton.png" Stretch="Uniform"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="nextLessonButton" Content="Ответить"
-                        HorizontalAlignment="Right" Width="120" Grid.Row="7" Margin="5">
+                <Button x:Name="nextButton" Content="Далее"
+                        HorizontalAlignment="Center" Width="120" Grid.Row="7" Margin="5">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
@@ -110,7 +113,7 @@
         <GroupBox x:Name="progressGroupBox"
                   Grid.Row="1" Grid.Column="1"
                   Background="#fffdfa"
-                  Visibility="Hidden">
+                  Visibility="Visible">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -121,10 +124,19 @@
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="helloTextBlock" Grid.Row="0"
                            HorizontalAlignment="Left" Margin="20"
-                           FontSize="18" FontFamily="Verdana" FontWeight="Bold"
-                           Foreground="SaddleBrown"/>
-                <TextBlock x:Name="wordsCount" Grid.Row="1"/>
-                <TextBlock x:Name="rulesCount" Grid.Row="2"/>
+                           FontSize="18" FontFamily="Verdana" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="20 0 0 0">
+                    <TextBlock Text="Словарный запас: "/>
+                    <TextBlock DataContext="{Binding Path=User}" Text="{Binding Path=Vocabulary}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="20 0 0 0">
+                    <TextBlock Text="Правил выучено: "/>
+                    <TextBlock DataContext="{Binding Path=User}" Text="{Binding Path=GrammarKnowledge}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="20 0 0 0">
+                    <TextBlock Text="Уровень английского: "/>
+                    <TextBlock x:Name="levelTextBlock"/>
+                </StackPanel>
                 <TextBlock x:Name="userLevel" Grid.Row="3"/>
                 <TextBlock x:Name="adviceTextBlock" Grid.Row="4"/>
             </Grid>

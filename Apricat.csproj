@@ -13,6 +13,7 @@
     <None Remove="main animation frames\main animation 3.png" />
     <None Remove="main animation frames\main animation 4.png" />
     <None Remove="play.png" />
+    <None Remove="playbutton.png" />
     <None Remove="sentence.wav" />
     <None Remove="settings.png" />
   </ItemGroup>
@@ -35,6 +36,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="play.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="playbutton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="sentence.wav">

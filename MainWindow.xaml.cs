@@ -44,18 +44,26 @@ namespace Apricat
                 settingsGroupBox.Visibility = Visibility.Visible;
             else settingsGroupBox.Visibility = Visibility.Collapsed;
         }
-        public void nextLessonButton_Click(object sender, RoutedEventArgs e)
+        public void nextButton_Click(object sender, RoutedEventArgs e)
         {
             //CheckIfCorrect(lesson);
+
         }
         public void lessonButton_Click(object sender, RoutedEventArgs e)
         {
             viewModel.LoadLessonsFromDB(User.CurrentUser);
         }
-        public void space_MouseDown(object sender, MouseEventArgs e)
+        public void repetitionButton_Click()
         {
-            spaceTextBox.Visibility = Visibility.Visible;
-            spaceTextBlock.Visibility = Visibility.Hidden;
+
+        }
+        public void progressButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
+        public void space_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            inputTextBox.Visibility = Visibility.Visible;
+            spaceTextBlock.Visibility = Visibility.Collapsed;
         }
         public void playButton_Click(object sender, RoutedEventArgs e)
         {
