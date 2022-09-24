@@ -17,16 +17,131 @@ namespace Apricat
 {
     public class ViewModel : INotifyPropertyChanged
     {
-        public string Header { get; set; } = "";
-        public string Keyword { get; set; } = "";
-        public string SentenceLeftPart { get; set; } = "";
-        public string SentenceRightPart { get; set; } = "";
-        public string MissingWord { get; set; } = "";
-        public string Space { get; set; } = "";
-        public string Transcription { get; set; } = "";
-        public string Translation { get; set; } = "";
-        public string AudioPath { get; set; } = "";
-        private bool availableLessons;
+        private string header;
+        public string Header
+        {
+            get { return header; }
+            set
+            {
+                header = value;
+                OnPropertyChanged("Header");
+            }
+        }
+        private string keyword;
+        public string Keyword
+        {
+            get { return keyword; }
+            set
+            {
+                keyword = value;
+                OnPropertyChanged("Keyword");
+            }
+        }
+        private string sentenceLeftPart;
+        public string SentenceLeftPart
+        {
+            get { return sentenceLeftPart; }
+            set
+            {
+                sentenceLeftPart = value;
+                OnPropertyChanged("SentenceLeftPart");
+            }
+        }
+        private string sentenceRightPart;
+        public string SentenceRightPart
+        {
+            get { return sentenceRightPart; }
+            set
+            {
+                sentenceRightPart = value;
+                OnPropertyChanged("SentenceRightPart");
+            }
+        }
+        private string missingWord;
+        public string MissingWord
+        {
+            get { return missingWord; }
+            set
+            {
+                missingWord = value;
+                OnPropertyChanged("MissingWord");
+            }
+        }
+        private string space;
+        public string Space
+        {
+            get { return space; }
+            set
+            {
+                space = value;
+                OnPropertyChanged("Space");
+            }
+        }
+        private string transcription;
+        public string Transcription
+        {
+            get { return transcription; }
+            set
+            {
+                transcription = value;
+                OnPropertyChanged("Transcription");
+            }
+        }
+        private string translation;
+        public string Translation
+        {
+            get { return translation; }
+            set
+            {
+                translation = value;
+                OnPropertyChanged("Translation");
+            }
+        }
+        private string answer1;
+        public string Asnwer1
+        {
+            get { return answer1; }
+            set
+            {
+                answer1 = value;
+                OnPropertyChanged("Annswer1");
+            }
+        }
+        private string answer2;
+        public string Asnwer2
+        {
+            get { return answer2; }
+            set
+            {
+                answer2 = value;
+                OnPropertyChanged("Annswer1");
+            }
+        }
+        private string answer3;
+        public string Asnwer3
+        {
+            get { return answer3; }
+            set
+            {
+                answer3 = value;
+                OnPropertyChanged("Annswer1");
+            }
+        }
+        private string audioPath;
+        public string AudioPath
+        {
+            get { return audioPath; }
+            set
+            {
+                audioPath = value;
+                OnPropertyChanged("AudioPath");
+            }
+        }
+
+        private int lessonPointer = 0;
+        private int wordsBufferPointer = 0;
+        private bool availableLessons = true;
+
         public ObservableCollection<Lesson> Lessons { get; set; }
         public ObservableCollection<Word> wordsBuffer { get; set; }
         private Lesson selectedLesson;
@@ -76,34 +191,31 @@ namespace Apricat
         {
             if (Lessons.Count > 0)
             {
-                foreach (Lesson lesson in Lessons)
-                {
-                    if (lesson.GetType() == typeof(Sentence))
-                    {
-                        StudySentence(lesson);
-                    }
-                    else if (lesson.GetType() == typeof(GrammarRule))
-                    {
-                        StudyGrammar(lesson);
-                    }
-                    else if (lesson.GetType() == typeof(GrammarTest))
-                    {
+                selectedLesson = Lessons[lessonPointer];
 
-                    }
-                    else
-                    {
-                        StudyWord(lesson);
-                    }
+                if (selectedLesson.GetType() == typeof(Sentence))
+                {
+                    StudySentence(selectedLesson);
+                }
+                else if (selectedLesson.GetType() == typeof(GrammarRule))
+                {
+                    StudyGrammar(selectedLesson);
+                }
+                else if (selectedLesson.GetType() == typeof(GrammarTest))
+                {
+                    TakeATest(selectedLesson);
+                }
+                else
+                {
+                    StudyWord(selectedLesson);
                 }
             }
             else
             {
                 if (wordsBuffer.Count > 0)
                 {
-                    foreach (Word word in wordsBuffer)
-                    {
-                        TestLearnedWords(word);
-                    }
+                    selectedLesson = wordsBuffer[wordsBufferPointer];
+                    TestLearnedWords(selectedLesson);
                 }
                 else
                 {
@@ -111,18 +223,10 @@ namespace Apricat
                 }
             }
         }
-        public bool CheckLessonsAvailability()
-        {
-            if (availableLessons)
-            {
-                return true;
-            }
-            else return false;
-        }
         private void StudyWord(Lesson lesson)
         {
             Word word = (Word)lesson;
-            Header = word.Keyword;
+            Header = "Новое слово: " + word.Keyword;
             Keyword = word.Keyword;
             SentenceLeftPart = "";
             SentenceRightPart = "";
@@ -152,7 +256,7 @@ namespace Apricat
         private void StudyGrammar(Lesson lesson)
         {
             GrammarRule grammarRule = (GrammarRule)lesson;
-            Header = "";
+            Header = grammarRule.Title;
             Keyword = "";
             SentenceLeftPart = "";
             SentenceRightPart = "";
@@ -165,10 +269,20 @@ namespace Apricat
         private void TakeATest(Lesson lesson)
         {
             GrammarTest grammarTest = (GrammarTest)lesson;
+            Header = grammarTest.Title;
+            Keyword = "";
+            SentenceLeftPart = "";
+            SentenceRightPart = "";
+            MissingWord = "";
+            Space = "";
+            Transcription = "";
+            Translation = "";
+            AudioPath = "";
 
         }
-        private void TestLearnedWords(Word word)
+        private void TestLearnedWords(Lesson lesson)
         {
+            Word word = (Word)lesson;
             Header = "Как это по-английски? Напишите слово вместо звёздочек:";
             Keyword = "";
             SentenceLeftPart = "";
@@ -183,39 +297,59 @@ namespace Apricat
             Translation = word.Translation;
             AudioPath = word.AudioPath;
         }
-        public bool CheckIfCorrect(string userInput)
+        public bool CheckLesson(string userInput)
+        {
+            if (selectedLesson.GetType() == typeof(Sentence))
+            {
+                Sentence testedSentence = (Sentence)selectedLesson;
+                if (userInput == testedSentence.MissingWord)
+                {
+                    return true;
+                }
+                else return false;
+                Lessons.Remove(selectedLesson);
+            }
+            else
+            {
+                return true; //If there is nothing to be checked - pass through
+            }
+        }
+        public bool CheckWord(string userInput)
+        {
+            if (userInput == selectedWord.Keyword)
+            {
+                return true;
+            }
+            else return false;
+            wordsBuffer.Remove(selectedWord);
+        }
+        public void IncrementLesson()
         {
             if (Lessons.Count > 0)
             {
-                
-                if (selectedLesson.GetType() == typeof(Sentence))
-                {
-                    Sentence testedSentence = (Sentence)selectedLesson;
-                    if (userInput == testedSentence.MissingWord)
-                    {
-                        return true;
-                    }
-                    else return false;
-                    Lessons.Remove(selectedLesson);
-                }
-                else
-                {
-                    return true;
-                    Lessons.Remove(selectedLesson);
-                }
+                lessonPointer++;
             }
             else
             {
                 if (wordsBuffer.Count > 0)
                 {
-                    if (userInput == selectedWord.Keyword)
-                    {
-                        return true;
-                    }
-                    else return false;
-                    wordsBuffer.Remove(selectedWord);
+                    wordsBufferPointer++;
                 }
-                else return true; //What to return here?
+                else
+                {
+                    availableLessons = false;
+                }
+            }
+        }
+        public bool CheckAvailability()
+        {
+            if (availableLessons)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

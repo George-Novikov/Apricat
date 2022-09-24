@@ -4,18 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Apricat
 {
-    public class User : DatabaseItem
+    public class User : DatabaseItem, INotifyPropertyChanged
     {
-        public static User CurrentUser;
+        public static User CurrentUser { get; set; }
         public object Id { get; set; }
         public string UserName { get; set; }
         public string Level { get; set; } = "Beginner";
         public int DailyRate { get; set; } = 10; //Number of words user wants to learn every day
-        public int Vocabulary = 0;
-        public int GrammarKnowledge = 0;
         public User() { }
         public User(string username, string level, int dailyrate)
         {
@@ -61,8 +61,6 @@ namespace Apricat
                             loginUser.UserName = reader.GetString(1);
                             loginUser.Level = reader.GetString(2);
                             loginUser.DailyRate = reader.GetInt32(3);
-                            loginUser.Vocabulary = reader.GetInt32(4);
-                            loginUser.GrammarKnowledge = reader.GetInt32(5);
                         }
                     }
                 }
@@ -88,8 +86,6 @@ namespace Apricat
                             user.UserName = reader.GetString(1);
                             user.Level = reader.GetString(2);
                             user.DailyRate = reader.GetInt32(3);
-                            user.Vocabulary = reader.GetInt32(4);
-                            user.GrammarKnowledge = reader.GetInt32(5);
                             users.Add(user);
                         }
                     }
@@ -105,17 +101,41 @@ namespace Apricat
         {
 
         }
-        public void CountLearnedWords()
+        public object CountLearnedWords()
         {
-
+            sqlExpression = @"SELECT COUNT(LearnedWordId)
+                               FROM LearnedWords";
+            using (SqliteConnection connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                object wordsCount = command.ExecuteScalar();
+                return wordsCount;
+            }
         }
         public void CountLearnedSentences()
         {
 
         }
-        public void CountLearnedGrammarRules()
+        public object CountLearnedGrammar()
         {
-
+            sqlExpression = @"SELECT COUNT(LearnedGrammarId)
+                               FROM LearnedGrammar";
+            using (SqliteConnection connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                object wordsCount = command.ExecuteScalar();
+                return wordsCount;
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
         }
     }
 }
