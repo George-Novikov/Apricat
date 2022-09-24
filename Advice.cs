@@ -4,21 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Apricat
 {
-    public class Advice : DatabaseItem
+    public class Advice : DatabaseItem, INotifyPropertyChanged
     {
+        public static Advice TodayAdvice { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public string ImagePath { get; set; }
-        public Advice LoadAdviceFromDB()
+        public static Advice LoadAdviceFromDB()
         {
             Advice advice = new Advice();
-            Random random = new Random();
-            int selectionId = random.Next(1, 20);
-            sqlExpression = "SELECT * FROM Advices WHERE Id=@selectionId";
+
+            string dateNow = DateTime.Now.ToShortDateString(); //Here we get today's date
+            string dateDigit = "";
+            for (int i=0; i<2; i++)
+            {
+                dateDigit += dateNow[i];
+            }
+            int selectionId = int.Parse(dateDigit)/2; //And divide it by 2, to get an advice number
+
+            sqlExpression = "SELECT * FROM Advices WHERE AdviceId=@selectionId";
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
@@ -40,6 +50,11 @@ namespace Apricat
                 }
             }
             return advice;
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string name = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

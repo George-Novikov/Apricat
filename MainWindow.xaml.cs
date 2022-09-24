@@ -25,7 +25,6 @@ namespace Apricat
     /// </summary>
     public partial class MainWindow : Window
     {
-        public User currentUser;
         private ViewModel viewModel;
         public static string connectionString = "Data Source=lessons.db";
         public MainWindow()
@@ -35,12 +34,13 @@ namespace Apricat
             if (User.CurrentUser is not null)
             {
                 helloTextBlock.Text = "Привет " + User.CurrentUser.UserName.ToString() + "!";
-                currentUser = User.CurrentUser;
             } else this.Close();
 
             viewModel = new ViewModel();
 
-            DataContext = viewModel; ;
+            PreloadProgress();
+
+            DataContext = viewModel;
         }
         private void settingsButton_GroupBoxCollapse(object sender, RoutedEventArgs e)
         {
@@ -72,16 +72,24 @@ namespace Apricat
         }
         public void repetitionButton_Click()
         {
+            workplaceGroupBox.Visibility = Visibility.Visible;
+            progressGroupBox.Visibility = Visibility.Collapsed;
+        }
+        public void PreloadProgress()
+        {
+            vocabularyTextBlock.Text = User.CurrentUser.CountLearnedWords().ToString();
+            rulesTextBlock.Text = User.CurrentUser.CountLearnedGrammar().ToString();
+            levelTextBlock.Text = User.CurrentUser.Level;
 
+            Advice.TodayAdvice = Advice.LoadAdviceFromDB();
+            adviceHeader.Text = "Совет дня: "+Advice.TodayAdvice.Title;
+            adviceTextBlock.Text = Advice.TodayAdvice.Content;
         }
         public void progressButton_Click(object sender, RoutedEventArgs e)
         {
             workplaceGroupBox.Visibility = Visibility.Collapsed;
             progressGroupBox.Visibility = Visibility.Visible;
-
-            vocabularyTextBlock.Text = currentUser.CountLearnedWords().ToString();
-            rulesTextBlock.Text = currentUser.CountLearnedGrammar().ToString();
-            levelTextBlock.Text = currentUser.Level;
+            PreloadProgress();
         }
         public void space_MouseDown(object sender, MouseButtonEventArgs e)
         {

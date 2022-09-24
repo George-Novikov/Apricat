@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="bin\Debug\net6.0-windows\audio\**" />
+    <EmbeddedResource Remove="bin\Debug\net6.0-windows\audio\**" />
+    <None Remove="bin\Debug\net6.0-windows\audio\**" />
+    <Page Remove="bin\Debug\net6.0-windows\audio\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="audio\meow.wav" />
     <None Remove="main animation frames\main animation 1.png" />
     <None Remove="main animation frames\main animation 2.png" />
@@ -22,7 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="bin\Debug\net6.0-windows\audio\meow.wav" />
+    <Resource Include="audio\meow.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -30,9 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="audio\meow.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="main animation frames\main animation 1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -75,6 +81,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Debug\net6.0-windows\" />
   </ItemGroup>
 
 </Project>

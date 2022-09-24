@@ -54,7 +54,7 @@ namespace Apricat
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand(sqlExpression, connection);
-                SqliteParameter lessonIdParam = new SqliteParameter("@LessonId", this.Id);
+                SqliteParameter lessonIdParam = new SqliteParameter("@LessonId", lesson.Id);
                 command.Parameters.Add(lessonIdParam);
                 SqliteParameter userIdParam = new SqliteParameter("@UserId", user.Id);
                 command.ExecuteNonQuery();
