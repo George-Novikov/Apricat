@@ -98,33 +98,33 @@ namespace Apricat
             }
         }
         private string answer1;
-        public string Asnwer1
+        public string Answer1
         {
             get { return answer1; }
             set
             {
                 answer1 = value;
-                OnPropertyChanged("Annswer1");
+                OnPropertyChanged("Answer1");
             }
         }
         private string answer2;
-        public string Asnwer2
+        public string Answer2
         {
             get { return answer2; }
             set
             {
                 answer2 = value;
-                OnPropertyChanged("Annswer1");
+                OnPropertyChanged("Answer2");
             }
         }
         private string answer3;
-        public string Asnwer3
+        public string Answer3
         {
             get { return answer3; }
             set
             {
                 answer3 = value;
-                OnPropertyChanged("Annswer1");
+                OnPropertyChanged("Answer3");
             }
         }
         private string audioPath;
@@ -137,6 +137,7 @@ namespace Apricat
                 OnPropertyChanged("AudioPath");
             }
         }
+
         private bool availableLessons = true;
 
         public ObservableCollection<Lesson> Lessons { get; set; }
@@ -183,6 +184,22 @@ namespace Apricat
             Lessons.Add(grammarRule);
             GrammarTest grammarTest = GrammarTest.LoadTestFromDB(grammarRule);
             Lessons.Add(grammarTest);
+        }
+        public void LoadRepetition(User user)
+        {
+            ObservableCollection<Word> words = Word.LoadLearnedWords(user);
+            foreach (Word word in words)
+            {
+                Lessons.Add(word);
+                wordsBuffer.Add(word);
+            }
+            ObservableCollection<Sentence> sentences = Sentence.LoadLearnedSentences(user);
+            foreach (Sentence sentence in sentences)
+            {
+                Lessons.Add(sentence);
+            }
+            GrammarRule grammarRule = GrammarRule.LoadLearnedRule(user);
+            Lessons.Add(grammarRule);
         }
         public void PrepareWorkplace()
         {
@@ -231,6 +248,9 @@ namespace Apricat
             Space = "";
             Transcription = word.Transcription;
             Translation = word.Translation;
+            Answer1 = null;
+            Answer2 = null;
+            Answer3 = null;
             AudioPath = word.AudioPath;
         }
         private void StudySentence(Lesson lesson)
@@ -241,13 +261,17 @@ namespace Apricat
             SentenceLeftPart = sentence.SentenceLeftPart;
             SentenceRightPart = sentence.SentenceRightPart;
             MissingWord = sentence.MissingWord;
-            while (Space.Length <= MissingWord.Length)
+            Space = "";
+            while (Space.Length < sentence.MissingWord.Length)
             {
                 Space += "_";
             }
             Space = " " + Space + " ";
             Transcription = "";
             Translation = sentence.Translation;
+            Answer1 = null;
+            Answer2 = null;
+            Answer3 = null;
             AudioPath = sentence.AudioPath;
         }
         private void StudyGrammar(Lesson lesson)
@@ -261,21 +285,45 @@ namespace Apricat
             Space = "";
             Transcription = "";
             Translation = grammarRule.Content;
+            Answer1 = null;
+            Answer2 = null;
+            Answer3 = null;
             AudioPath = grammarRule.AudioPath;
         }
         private void TakeATest(Lesson lesson)
         {
             GrammarTest grammarTest = (GrammarTest)lesson;
             Header = grammarTest.Title;
-            Keyword = "";
+            Keyword = grammarTest.ExerciseText;
             SentenceLeftPart = "";
             SentenceRightPart = "";
             MissingWord = "";
             Space = "";
             Transcription = "";
-            Translation = "";
+            Translation = "Выберите правильный ответ:";
             AudioPath = "";
 
+            Random random = new Random();
+            int answerOrder = random.Next(1, 3);
+
+            if (answerOrder == 1)
+            {
+                Answer1 = grammarTest.RightAnswer;
+                Answer2 = grammarTest.WrongAnswer1;
+                Answer3 = grammarTest.WrongAnswer2;
+            }
+            if (answerOrder == 2)
+            {
+                Answer1 = grammarTest.WrongAnswer1;
+                Answer2 = grammarTest.RightAnswer;
+                Answer3 = grammarTest.WrongAnswer2;
+            }
+            if (answerOrder == 3)
+            {
+                Answer1 = grammarTest.WrongAnswer1;
+                Answer2 = grammarTest.WrongAnswer2;
+                Answer3 = grammarTest.RightAnswer;
+            }
         }
         private void TestLearnedWords(Lesson lesson)
         {
@@ -285,13 +333,17 @@ namespace Apricat
             SentenceLeftPart = "";
             SentenceRightPart = "";
             MissingWord = "";
-            while (Space.Length <= MissingWord.Length)
+            Space = "";
+            while (Space.Length < word.Keyword.Length)
             {
                 Space += "*";
             }
             Space = "\" " + Space + " \"";
             Transcription = "";
             Translation = word.Translation;
+            Answer1 = null;
+            Answer2 = null;
+            Answer3 = null;
             AudioPath = word.AudioPath;
         }
         public bool CheckLesson(string userInput)
@@ -301,7 +353,7 @@ namespace Apricat
                 if (selectedLesson.GetType() == typeof(Sentence))
                 {
                     Sentence testedSentence = (Sentence)selectedLesson;
-                    if (userInput == testedSentence.MissingWord)
+                    if (userInput == testedSentence.MissingWord.ToLower())
                     {
                         Lesson.MarkLearned(User.CurrentUser, testedSentence);
                         Lessons.Remove(selectedLesson);
@@ -338,7 +390,7 @@ namespace Apricat
             {
                 if (wordsBuffer.Count > 0)
                 {
-                    if (userInput == selectedWord.Keyword)
+                    if (userInput == selectedWord.Keyword.ToLower())
                     {
                         Lesson.MarkLearned(User.CurrentUser, selectedWord);
                         wordsBuffer.Remove(selectedWord);
@@ -352,7 +404,7 @@ namespace Apricat
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
         }

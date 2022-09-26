@@ -29,13 +29,16 @@ namespace Apricat
                 {
                     if (reader.HasRows)
                     {
-                        grammarTest.Id = reader.GetInt32(0);
-                        grammarTest.Title = reader.GetString(2);
-                        grammarTest.ExerciseText = reader.GetString(3);
-                        grammarTest.RightAnswer = reader.GetString(4);
-                        grammarTest.WrongAnswer1 = reader.GetString(5);
-                        grammarTest.WrongAnswer2 = reader.GetString(6);
-                        grammarTest.AudioPath = reader.GetString(7);
+                        while (reader.Read())
+                        {
+                            grammarTest.Id = reader.GetInt32(0);
+                            grammarTest.Title = reader.GetString(2);
+                            grammarTest.ExerciseText = reader.GetString(3);
+                            grammarTest.RightAnswer = reader.GetString(4);
+                            grammarTest.WrongAnswer1 = reader.GetString(5);
+                            grammarTest.WrongAnswer2 = reader.GetString(6);
+                            grammarTest.AudioPath = reader.GetString(7);
+                        }
                     }
                 }
             }

@@ -24,8 +24,8 @@ namespace Apricat
             DailyRate = dailyrate;
 
             sqlExpression = @"INSERT INTO Users
-                             (UserName, Level, DailyRate, Vocabulary, GrammarKnowledge)
-                              VALUES (@UserName, @Level, @DailyRate, 0, 0);
+                             (UserName, Level, DailyRate)
+                              VALUES (@UserName, @Level, @DailyRate);
                               SELECT last_insert_rowid()";
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
@@ -113,9 +113,17 @@ namespace Apricat
                 return wordsCount;
             }
         }
-        public void CountLearnedSentences()
+        public object CountLearnedSentences()
         {
-
+            sqlExpression = @"SELECT COUNT(LearnedSentenceId)
+                               FROM LearnedSentences";
+            using (SqliteConnection connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                object sentenceCount = command.ExecuteScalar();
+                return sentenceCount;
+            }
         }
         public object CountLearnedGrammar()
         {
@@ -125,8 +133,8 @@ namespace Apricat
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand(sqlExpression, connection);
-                object wordsCount = command.ExecuteScalar();
-                return wordsCount;
+                object grammarCount = command.ExecuteScalar();
+                return grammarCount;
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

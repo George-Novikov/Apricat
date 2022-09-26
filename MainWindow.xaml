@@ -21,6 +21,7 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="Foreground" Value="SaddleBrown"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
     </Window.Resources>
     <Grid ShowGridLines="False" Background="FloralWhite">
@@ -41,7 +42,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="repetitionButton" Content="Повторение">
+            <Button x:Name="repetitionButton" Content="Повторение" Click="repetitionButton_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
@@ -71,70 +72,76 @@
                   Grid.Row="1" Grid.Column="1"
                   Background="#fffdfa"
                   Visibility="Hidden">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock x:Name="lessonHeader" Grid.Row="0"
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="lessonHeader" Grid.Row="0"
                            HorizontalAlignment="Left" Margin="20"
                            FontSize="22" FontFamily="Verdana" FontWeight="Bold"
                            Foreground="SaddleBrown" Text="{Binding Header}"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="2"
+                    <StackPanel Orientation="Horizontal" Grid.Row="2"
                             HorizontalAlignment="Center">
-                    <TextBlock Text="{Binding Path=Keyword}" HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding Path=SentenceLeftPart}" HorizontalAlignment="Center"/>
-                    <TextBlock x:Name="spaceTextBlock" Text="{Binding Path=Space}"
+                        <TextBlock Text="{Binding Path=Keyword}" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=SentenceLeftPart}" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="spaceTextBlock" Text="{Binding Path=Space}"
                                HorizontalAlignment="Center" MouseDown="space_MouseDown"/>
-                    <TextBox x:Name="inputTextBox" Height="20" Width="30" Visibility="Collapsed"
-                             HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding Path=SentenceRightPart}" HorizontalAlignment="Center"/>
-                </StackPanel>
-                <TextBlock Text="{Binding Path=Transcription}" Grid.Row="3"
+                        <TextBox x:Name="inputTextBox" Height="30" Width="80" Visibility="Collapsed"
+                             TextAlignment="Center" FontSize="22" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=SentenceRightPart}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding Path=Transcription}" Grid.Row="3"
                            HorizontalAlignment="Center" Foreground="Gray"/>
-                <TextBlock Text="{Binding Path=Translation}" Grid.Row="4" HorizontalAlignment="Center"/>
-                <Button x:Name="playButton" Click="playButton_Click"
+                    <TextBlock Text="{Binding Path=Translation}" Grid.Row="4" HorizontalAlignment="Center"/>
+                    <Button x:Name="playButton" Click="playButton_Click"
                         Grid.Row="6" BorderBrush="FloralWhite" Width="25">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Border x:Name="buttonBorder"/>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="buttonBorder" Property="Background">
-                                        <Setter.Value>
-                                            <ImageBrush ImageSource="playbuttonover.png" Stretch="Uniform"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="False">
-                                    <Setter TargetName="buttonBorder" Property="Background">
-                                        <Setter.Value>
-                                            <ImageBrush ImageSource="playbutton.png" Stretch="Uniform"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <ListBox x:Name="grammarTestListBox" Grid.Row="7"
-                         Foreground="SaddleBrown" BorderBrush="Beige"/>
-                <Button x:Name="nextButton" Content="Далее" Click="nextButton_Click"
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border x:Name="buttonBorder"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="buttonBorder" Property="Background">
+                                            <Setter.Value>
+                                                <ImageBrush ImageSource="playbuttonover.png" Stretch="Uniform"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="False">
+                                        <Setter TargetName="buttonBorder" Property="Background">
+                                            <Setter.Value>
+                                                <ImageBrush ImageSource="playbutton.png" Stretch="Uniform"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <ListBox x:Name="grammarTestListBox" Grid.Row="7" BorderBrush="FloralWhite"
+                         Foreground="SaddleBrown" FontSize="22" HorizontalAlignment="Center">
+                        <ListBoxItem Content="{Binding Path=Answer1}"/>
+                        <ListBoxItem Content="{Binding Path=Answer2}"/>
+                        <ListBoxItem Content="{Binding Path=Answer3}"/>
+                    </ListBox>
+                    <Button x:Name="nextButton" Content="Далее" Click="nextButton_Click"
                         HorizontalAlignment="Center" Width="120" Grid.Row="8" Margin="5">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="15"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-            </Grid>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </ScrollViewer>
         </GroupBox>
         <GroupBox x:Name="progressGroupBox"
                   Grid.Row="1" Grid.Column="1"
@@ -142,6 +149,7 @@
                   Visibility="Visible">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -158,15 +166,19 @@
                     <TextBlock x:Name="vocabularyTextBlock"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="20 0 0 0">
+                    <TextBlock Text="Предложения: "/>
+                    <TextBlock x:Name="sentenceTextBlock"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="20 0 0 0">
                     <TextBlock Text="Правил выучено: "/>
                     <TextBlock x:Name="rulesTextBlock"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="20 0 0 0">
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="20 0 0 0">
                     <TextBlock Text="Уровень английского: "/>
                     <TextBlock x:Name="levelTextBlock"/>
                 </StackPanel>
-                <TextBlock x:Name="adviceHeader" Grid.Row="5" Margin="20 0 0 0"/>
-                <TextBlock x:Name="adviceTextBlock" Grid.Row="7" Margin="20"
+                <TextBlock x:Name="adviceHeader" Grid.Row="6" Margin="20 0 0 0"/>
+                <TextBlock x:Name="adviceTextBlock" Grid.Row="8" Margin="20"
                            TextWrapping="WrapWithOverflow" FontSize="18"/>
             </Grid>
         </GroupBox>
@@ -174,6 +186,8 @@
                    FontSize="24" FontWeight="Black" FontFamily="Century Gothic"
                    Foreground="SaddleBrown" Grid.Column="0" Grid.Row="0" 
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel x:Name="answersIndicator" Grid.Column="3" Orientation="Horizontal"
+                    VerticalAlignment="Center" HorizontalAlignment="Left"/>
         <Button x:Name="settingsButton" Click="settingsButton_GroupBoxCollapse"
                 HorizontalAlignment="Right" VerticalAlignment="Center"
                 MinHeight="30" MinWidth="30" Grid.Column="3" BorderBrush="Beige">

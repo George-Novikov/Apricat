@@ -17,7 +17,8 @@ namespace Apricat
             sqlExpression = @"SELECT * FROM GrammarRules
                               WHERE GrammarRuleId NOT IN
                              (SELECT GrammarRuleId FROM LearnedGrammar
-                              WHERE UserId=@UserId)";
+                              WHERE UserId=@UserId)
+                              AND Level=@UserLevel";
             GrammarRule rule = new GrammarRule();
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
@@ -25,6 +26,42 @@ namespace Apricat
                 SqliteCommand command = new SqliteCommand(sqlExpression, connection);
                 SqliteParameter userIdParam = new SqliteParameter("@UserId", user.Id);
                 command.Parameters.Add(userIdParam);
+                SqliteParameter userLevelParam = new SqliteParameter("@UserLevel", user.Level);
+                command.Parameters.Add(userLevelParam);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            rule.Id = reader.GetInt32(0);
+                            rule.Title = reader.GetString(1);
+                            rule.Content = reader.GetString(2);
+                            rule.Level = reader.GetString(3);
+                            rule.AudioPath = reader.GetString(4);
+                        }
+                    }
+                }
+            }
+            return rule;
+        }
+        public static GrammarRule LoadLearnedRule(User user)
+        {
+            //The difference is here - we choose only learned rules
+            sqlExpression = @"SELECT * FROM GrammarRules
+                              WHERE GrammarRuleId IN
+                             (SELECT GrammarRuleId FROM LearnedGrammar
+                              WHERE UserId=@UserId)
+                              AND Level=@UserLevel";
+            GrammarRule rule = new GrammarRule();
+            using (SqliteConnection connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                SqliteParameter userIdParam = new SqliteParameter("@UserId", user.Id);
+                command.Parameters.Add(userIdParam);
+                SqliteParameter userLevelParam = new SqliteParameter("@UserLevel", user.Level);
+                command.Parameters.Add(userLevelParam);
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)

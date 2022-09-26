@@ -27,21 +27,21 @@ namespace Apricat
     public partial class MainWindow : Window
     {
         private ViewModel viewModel;
-        public static string connectionString = "Data Source=lessons.db";
         public MainWindow()
         {
             InitializeComponent();
 
             if (User.CurrentUser is not null)
             {
-                helloTextBlock.Text = "Привет " + User.CurrentUser.UserName.ToString() + "!";
-            } else this.Close();
-
-            viewModel = new ViewModel();
-
-            PreloadProgress();
-
-            DataContext = viewModel;
+                helloTextBlock.Text = "Привет, " + User.CurrentUser.UserName.ToString() + "!";
+                viewModel = new ViewModel();
+                DataContext = viewModel;
+                PreloadProgress();
+            }
+            else
+            {
+                this.Close();
+            }
         }
         private void settingsButton_GroupBoxCollapse(object sender, RoutedEventArgs e)
         {
@@ -51,27 +51,18 @@ namespace Apricat
         }
         public void nextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (inputTextBox.Visibility == Visibility.Visible)
-            {
-                inputTextBox.Visibility = Visibility.Collapsed;
-            }
+            inputTextBox.Visibility = Visibility.Collapsed;
 
-            if (inputTextBox.Text != "" || grammarTestListBox.SelectedItem != "")
+            if (grammarTestListBox.SelectedItem != null)
+            {
+                ListBoxItem listBoxItem = (ListBoxItem)grammarTestListBox.SelectedItem;
+                bool passed = viewModel.CheckLesson(listBoxItem.Content.ToString());
+                EllipsePainter(passed);
+            }
+            else
             {
                 bool passed = viewModel.CheckLesson(inputTextBox.Text);
-
-                if (passed)
-                {
-                    nextButton.Background = new SolidColorBrush(Colors.Green);
-                    //Thread.Sleep(2000);
-                    nextButton.Background = new SolidColorBrush(Colors.Beige);
-                }
-                else
-                {
-                    nextButton.Background = new SolidColorBrush(Colors.DarkRed);
-                    //Thread.Sleep(2000);
-                    nextButton.Background = new SolidColorBrush(Colors.Beige);
-                }
+                EllipsePainter(passed);
             }
             
             if (viewModel.CheckAvailability())
@@ -80,7 +71,29 @@ namespace Apricat
             }
             else
             {
-                MessageBox.Show("Good work!");
+                MessageBox.Show("Урок на сегодня завершён. Отличная работа!");
+                nextButton.IsEnabled = false;
+            }
+        }
+        public void EllipsePainter(bool passed)
+        {
+            if (passed)
+            {
+                Ellipse ellipse = new Ellipse();
+                ellipse.Fill = new SolidColorBrush(Colors.Green);
+                ellipse.Height = 15;
+                ellipse.Width = 15;
+                ellipse.Margin = new Thickness(2);
+                answersIndicator.Children.Add(ellipse);
+            }
+            else
+            {
+                Ellipse ellipse = new Ellipse();
+                ellipse.Fill = new SolidColorBrush(Colors.DarkRed);
+                ellipse.Height = 15;
+                ellipse.Width = 15;
+                ellipse.Margin = new Thickness(2);
+                answersIndicator.Children.Add(ellipse);
             }
         }
         public void lessonButton_Click(object sender, RoutedEventArgs e)
@@ -88,17 +101,35 @@ namespace Apricat
             workplaceGroupBox.Visibility = Visibility.Visible;
             progressGroupBox.Visibility = Visibility.Collapsed;
 
+            answersIndicator.Children.Clear();
+
+            nextButton.IsEnabled = true;
+
+            viewModel.Lessons.Clear();
+            viewModel.wordsBuffer.Clear();
+
             viewModel.LoadLessonsFromDB(User.CurrentUser);
             viewModel.PrepareWorkplace();
         }
-        public void repetitionButton_Click()
+        public void repetitionButton_Click(object sender, RoutedEventArgs e)
         {
             workplaceGroupBox.Visibility = Visibility.Visible;
             progressGroupBox.Visibility = Visibility.Collapsed;
+
+            answersIndicator.Children.Clear();
+
+            nextButton.IsEnabled = true;
+
+            viewModel.Lessons.Clear();
+            viewModel.wordsBuffer.Clear();
+
+            viewModel.LoadRepetition(User.CurrentUser);
+            viewModel.PrepareWorkplace();
         }
         public void PreloadProgress()
         {
             vocabularyTextBlock.Text = User.CurrentUser.CountLearnedWords().ToString();
+            sentenceTextBlock.Text = User.CurrentUser.CountLearnedSentences().ToString();
             rulesTextBlock.Text = User.CurrentUser.CountLearnedGrammar().ToString();
             levelTextBlock.Text = User.CurrentUser.Level;
 
@@ -111,6 +142,8 @@ namespace Apricat
             workplaceGroupBox.Visibility = Visibility.Collapsed;
             progressGroupBox.Visibility = Visibility.Visible;
             PreloadProgress();
+
+            answersIndicator.Children.Clear();
         }
         public void space_MouseDown(object sender, MouseButtonEventArgs e)
         {
