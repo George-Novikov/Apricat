@@ -5,6 +5,7 @@ using System.Linq;
 using System.Media;
 using System.Printing;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,11 +51,31 @@ namespace Apricat
         }
         public void nextButton_Click(object sender, RoutedEventArgs e)
         {
-            //viewModel.CheckIfCorrect(lesson);
+            if (inputTextBox.Visibility == Visibility.Visible)
+            {
+                inputTextBox.Visibility = Visibility.Collapsed;
+            }
+
+            if (inputTextBox.Text != "" || grammarTestListBox.SelectedItem != "")
+            {
+                bool passed = viewModel.CheckLesson(inputTextBox.Text);
+
+                if (passed)
+                {
+                    nextButton.Background = new SolidColorBrush(Colors.Green);
+                    //Thread.Sleep(2000);
+                    nextButton.Background = new SolidColorBrush(Colors.Beige);
+                }
+                else
+                {
+                    nextButton.Background = new SolidColorBrush(Colors.DarkRed);
+                    //Thread.Sleep(2000);
+                    nextButton.Background = new SolidColorBrush(Colors.Beige);
+                }
+            }
             
             if (viewModel.CheckAvailability())
             {
-                viewModel.IncrementLesson();
                 viewModel.PrepareWorkplace();
             }
             else

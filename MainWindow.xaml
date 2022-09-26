@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apricat"
         mc:Ignorable="d"
-        Title="Apricat" Height="667" Width="1187" x:Name="mainWindow">
+        Title="Apricat" Height="667" Width="1187" x:Name="mainWindow"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="MinHeight" Value="50"/>

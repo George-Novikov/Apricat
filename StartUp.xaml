@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apricat"
         mc:Ignorable="d"
-        Title="ApriCat - Login" Height="450" Width="800" Closing="StartUpClosing_LoadMainWindow">
+        Title="ApriCat - Login" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Closing="StartUpClosing_LoadMainWindow">
     <Grid Background="Beige">
         <GroupBox x:Name="loginGroupBox" Background="Beige" Visibility="Visible">
             <Grid>

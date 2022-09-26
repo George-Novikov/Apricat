@@ -50,6 +50,7 @@ namespace Apricat
                     {
                         userLevel = "Upper-\nIntermediate";
                     }
+                    userLevel = " " + userLevel + " ";
 
                     userButtonText.Text = $"{user.UserName}\n({userLevel})";
                     userButton.Content = userButtonText;

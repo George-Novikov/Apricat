@@ -33,7 +33,7 @@ namespace Apricat
 
             return lessons;
         }
-        public void MarkLearned(User user, Lesson lesson)
+        public static void MarkLearned(User user, Lesson lesson)
         {
             if (lesson is Word)
             {
@@ -45,7 +45,7 @@ namespace Apricat
                 sqlExpression = @"INSERT INTO LearnedSentences (SentenceId, UserId)
                                   VALUES (@LessonId, @UserId)";
             }
-            else if (lesson is GrammarRule)
+            else if (lesson is GrammarTest)
             {
                 sqlExpression = @"INSERT INTO LearnedGrammar (GrammarRuleId, UserId)
                                   VALUES (@LessonId, @UserId)";
@@ -57,6 +57,7 @@ namespace Apricat
                 SqliteParameter lessonIdParam = new SqliteParameter("@LessonId", lesson.Id);
                 command.Parameters.Add(lessonIdParam);
                 SqliteParameter userIdParam = new SqliteParameter("@UserId", user.Id);
+                command.Parameters.Add(userIdParam);
                 command.ExecuteNonQuery();
             }
         }

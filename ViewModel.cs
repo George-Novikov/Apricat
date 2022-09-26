@@ -137,9 +137,6 @@ namespace Apricat
                 OnPropertyChanged("AudioPath");
             }
         }
-
-        private int lessonPointer = 0;
-        private int wordsBufferPointer = 0;
         private bool availableLessons = true;
 
         public ObservableCollection<Lesson> Lessons { get; set; }
@@ -191,7 +188,7 @@ namespace Apricat
         {
             if (Lessons.Count > 0)
             {
-                selectedLesson = Lessons[lessonPointer];
+                selectedLesson = Lessons[0];
 
                 if (selectedLesson.GetType() == typeof(Sentence))
                 {
@@ -214,8 +211,8 @@ namespace Apricat
             {
                 if (wordsBuffer.Count > 0)
                 {
-                    selectedLesson = wordsBuffer[wordsBufferPointer];
-                    TestLearnedWords(selectedLesson);
+                    selectedWord = wordsBuffer[0];
+                    TestLearnedWords(selectedWord);
                 }
                 else
                 {
@@ -299,45 +296,63 @@ namespace Apricat
         }
         public bool CheckLesson(string userInput)
         {
-            if (selectedLesson.GetType() == typeof(Sentence))
-            {
-                Sentence testedSentence = (Sentence)selectedLesson;
-                if (userInput == testedSentence.MissingWord)
-                {
-                    return true;
-                }
-                else return false;
-                Lessons.Remove(selectedLesson);
-            }
-            else
-            {
-                return true; //If there is nothing to be checked - pass through
-            }
-        }
-        public bool CheckWord(string userInput)
-        {
-            if (userInput == selectedWord.Keyword)
-            {
-                return true;
-            }
-            else return false;
-            wordsBuffer.Remove(selectedWord);
-        }
-        public void IncrementLesson()
-        {
             if (Lessons.Count > 0)
             {
-                lessonPointer++;
+                if (selectedLesson.GetType() == typeof(Sentence))
+                {
+                    Sentence testedSentence = (Sentence)selectedLesson;
+                    if (userInput == testedSentence.MissingWord)
+                    {
+                        Lesson.MarkLearned(User.CurrentUser, testedSentence);
+                        Lessons.Remove(selectedLesson);
+                        return true;
+                    }
+                    else
+                    {
+                        Lessons.Remove(selectedLesson);
+                        return false;
+                    }
+                }
+                else if (selectedLesson.GetType() == typeof(GrammarTest))
+                {
+                    GrammarTest grammarTest = (GrammarTest)selectedLesson;
+                    if (userInput == grammarTest.RightAnswer)
+                    {
+                        Lesson.MarkLearned(User.CurrentUser, grammarTest);
+                        Lessons.Remove(selectedLesson);
+                        return true;
+                    }
+                    else
+                    {
+                        Lessons.Remove(selectedLesson);
+                        return false;
+                    }
+                }
+                else
+                {
+                    Lessons.Remove(selectedLesson);
+                    return true; //If there is nothing to be checked - pass through
+                }
             }
             else
             {
                 if (wordsBuffer.Count > 0)
                 {
-                    wordsBufferPointer++;
+                    if (userInput == selectedWord.Keyword)
+                    {
+                        Lesson.MarkLearned(User.CurrentUser, selectedWord);
+                        wordsBuffer.Remove(selectedWord);
+                        return true;
+                    }
+                    else
+                    {
+                        wordsBuffer.Remove(selectedWord);
+                        return false;
+                    }
                 }
                 else
                 {
-                    availableLessons = false;
+                    return false;
                 }
             }
         }
