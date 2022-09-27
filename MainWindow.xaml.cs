@@ -7,6 +7,7 @@ using System.Printing;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -53,16 +54,24 @@ namespace Apricat
         {
             inputTextBox.Visibility = Visibility.Collapsed;
 
+            bool passed;
             if (grammarTestListBox.SelectedItem != null)
             {
                 ListBoxItem listBoxItem = (ListBoxItem)grammarTestListBox.SelectedItem;
-                bool passed = viewModel.CheckLesson(listBoxItem.Content.ToString());
+                passed = viewModel.CheckLesson(listBoxItem.Content.ToString());
                 EllipsePainter(passed);
+                grammarTestListBox.SelectedItem = null;
             }
             else
             {
-                bool passed = viewModel.CheckLesson(inputTextBox.Text);
+                passed = viewModel.CheckLesson(inputTextBox.Text);
                 EllipsePainter(passed);
+            }
+            if (passed)
+            {
+                ShowHeartsAnimation(sender, e);
+                //mainAnimationImage.Visibility = Visibility.Collapsed;
+                //heartsAnimationImage.Visibility = Visibility.Visible;
             }
             
             if (viewModel.CheckAvailability())
@@ -71,7 +80,8 @@ namespace Apricat
             }
             else
             {
-                MessageBox.Show("Урок на сегодня завершён. Отличная работа!");
+                //washingAnimation.Visibility = Visibility.Visible;
+                MessageBox.Show("Все уроки пройдены. Отличная работа!");
                 nextButton.IsEnabled = false;
             }
         }
@@ -80,7 +90,7 @@ namespace Apricat
             if (passed)
             {
                 Ellipse ellipse = new Ellipse();
-                ellipse.Fill = new SolidColorBrush(Colors.Green);
+                ellipse.Fill = new SolidColorBrush(Colors.LightGreen);
                 ellipse.Height = 15;
                 ellipse.Width = 15;
                 ellipse.Margin = new Thickness(2);
@@ -89,11 +99,24 @@ namespace Apricat
             else
             {
                 Ellipse ellipse = new Ellipse();
-                ellipse.Fill = new SolidColorBrush(Colors.DarkRed);
+                ellipse.Fill = new SolidColorBrush(Colors.IndianRed);
                 ellipse.Height = 15;
                 ellipse.Width = 15;
                 ellipse.Margin = new Thickness(2);
                 answersIndicator.Children.Add(ellipse);
+            }
+        }
+        public void ShowHeartsAnimation(object sender, EventArgs e)
+        {
+            if (mainAnimationImage.Visibility == Visibility.Visible)
+            {
+                mainAnimationImage.Visibility = Visibility.Collapsed;
+                heartsAnimationImage.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                mainAnimationImage.Visibility = Visibility.Visible;
+                heartsAnimationImage.Visibility = Visibility.Collapsed;
             }
         }
         public void lessonButton_Click(object sender, RoutedEventArgs e)

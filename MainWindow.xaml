@@ -57,12 +57,23 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
-        <Image x:Name="mainAnimationImage" Grid.Row="1" VerticalAlignment="Bottom">
+        <Image x:Name="mainAnimationImage" Grid.Row="1" VerticalAlignment="Bottom" Visibility="Visible">
             <Image.Triggers>
                 <EventTrigger RoutedEvent="Loaded">
                     <BeginStoryboard>
                         <Storyboard RepeatBehavior="Forever">
                             <StaticResourceExtension ResourceKey="mainAnimation"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+        <Image x:Name="heartsAnimationImage" Grid.Row="1" VerticalAlignment="Bottom" Visibility="Collapsed">
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard Completed="ShowHeartsAnimation">
+                            <StaticResourceExtension ResourceKey="heartsAnimation"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
