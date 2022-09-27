@@ -176,14 +176,23 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="20 0 0 0">
                     <TextBlock Text="Словарный запас: "/>
                     <TextBlock x:Name="vocabularyTextBlock"/>
+                    <Button Content="Посмотреть" FontSize="12" BorderBrush="FloralWhite"
+                            MinWidth="90" MinHeight="20" Margin="25 0 0 0"
+                            VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="20 0 0 0">
                     <TextBlock Text="Предложения: "/>
                     <TextBlock x:Name="sentenceTextBlock"/>
+                    <Button Content="Посмотреть" FontSize="12" BorderBrush="FloralWhite"
+                            MinWidth="90" MinHeight="20" Margin="25 0 0 0"
+                            VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="20 0 0 0">
                     <TextBlock Text="Правил выучено: "/>
                     <TextBlock x:Name="rulesTextBlock"/>
+                    <Button Content="Посмотреть" FontSize="12" BorderBrush="FloralWhite"
+                            MinWidth="90" MinHeight="20" Margin="25 0 0 0"
+                            VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="20 0 0 0">
                     <TextBlock Text="Уровень английского: "/>
@@ -200,18 +209,12 @@
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <StackPanel x:Name="answersIndicator" Grid.Column="3" Orientation="Horizontal"
                     VerticalAlignment="Center" HorizontalAlignment="Left"/>
-        <Button x:Name="settingsButton" Click="settingsButton_GroupBoxCollapse"
+        <Button x:Name="settingsButton" Click="settingsButton_Click"
                 HorizontalAlignment="Right" VerticalAlignment="Center"
                 MinHeight="30" MinWidth="30" Grid.Column="3" BorderBrush="Beige">
             <Button.Background>
                 <ImageBrush ImageSource="settings.png" Stretch="Uniform"/>
             </Button.Background>
         </Button>
-        <GroupBox x:Name="settingsGroupBox" Visibility="Collapsed"
-                  MinHeight="200" MinWidth="300"
-                  Foreground="SaddleBrown" Background="Beige" 
-                  HorizontalAlignment="Center" VerticalAlignment="Center" 
-                  Grid.Row="1" Grid.Column="1" Header="Настройки">
-        </GroupBox>
     </Grid>
 </Window>

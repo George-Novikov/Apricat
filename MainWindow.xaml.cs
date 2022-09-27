@@ -44,15 +44,16 @@ namespace Apricat
                 this.Close();
             }
         }
-        private void settingsButton_GroupBoxCollapse(object sender, RoutedEventArgs e)
+
+        private void settingsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (settingsGroupBox.Visibility == Visibility.Collapsed)
-                settingsGroupBox.Visibility = Visibility.Visible;
-            else settingsGroupBox.Visibility = Visibility.Collapsed;
+            Settings settings = new Settings();
+            settings.Show();
         }
         public async void nextButton_Click(object sender, RoutedEventArgs e)
         {
             bool passed;
+
             if (grammarTestListBox.SelectedItem != null)
             {
                 ListBoxItem listBoxItem = (ListBoxItem)grammarTestListBox.SelectedItem;
@@ -65,18 +66,19 @@ namespace Apricat
                 passed = viewModel.CheckLesson(inputTextBox.Text);
                 EllipsePainter(passed);
             }
+
             if (passed)
             {
                 ShowHeartsAnimation();
                 nextButton.IsEnabled = false;
-                await Task.Delay(650);
+                await Task.Delay(625);
                 ShowHeartsAnimation();
                 nextButton.IsEnabled = true;
             }
             else
             {
                 nextButton.IsEnabled = false;
-                await Task.Delay(650);
+                await Task.Delay(625);
                 nextButton.IsEnabled = true;
             }
             

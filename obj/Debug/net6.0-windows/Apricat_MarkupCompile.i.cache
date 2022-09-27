@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\repository\Apricat\App.xaml
-32133865187
+41362865604
 
-16-471855747
+17526992238
 198851167793
-AnimationResources.xaml;MainWindow.xaml;StartUp.xaml;
+AnimationResources.xaml;MainWindow.xaml;Settings.xaml;StartUp.xaml;
 
 True
 
