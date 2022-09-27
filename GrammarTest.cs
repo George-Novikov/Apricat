@@ -38,6 +38,7 @@ namespace Apricat
                             grammarTest.WrongAnswer1 = reader.GetString(5);
                             grammarTest.WrongAnswer2 = reader.GetString(6);
                             grammarTest.AudioPath = reader.GetString(7);
+                            grammarTest.IsLearned = false;
                         }
                     }
                 }

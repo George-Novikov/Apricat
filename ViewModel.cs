@@ -138,10 +138,9 @@ namespace Apricat
             }
         }
 
-        private bool availableLessons = true;
-
         public ObservableCollection<Lesson> Lessons { get; set; }
         public ObservableCollection<Word> wordsBuffer { get; set; }
+
         private Lesson selectedLesson;
         public Lesson SelectedLesson
         {
@@ -181,9 +180,16 @@ namespace Apricat
                 Lessons.Add(sentence);
             }
             GrammarRule grammarRule = GrammarRule.LoadRuleFromDB(user);
-            Lessons.Add(grammarRule);
+            if (grammarRule.Title != null)
+            {
+                Lessons.Add(grammarRule);
+            }
             GrammarTest grammarTest = GrammarTest.LoadTestFromDB(grammarRule);
-            Lessons.Add(grammarTest);
+            if (grammarTest.Title != null)
+            {
+                Lessons.Add(grammarTest);
+            }
+            
         }
         public void LoadRepetition(User user)
         {
@@ -199,7 +205,15 @@ namespace Apricat
                 Lessons.Add(sentence);
             }
             GrammarRule grammarRule = GrammarRule.LoadLearnedRule(user);
-            Lessons.Add(grammarRule);
+            if (grammarRule.Title != null)
+            {
+                Lessons.Add(grammarRule);
+            }
+            GrammarTest grammarTest = GrammarTest.LoadTestFromDB(grammarRule);
+            if (grammarTest.Title != null)
+            {
+                Lessons.Add(grammarTest);
+            }
         }
         public void PrepareWorkplace()
         {
@@ -230,10 +244,6 @@ namespace Apricat
                 {
                     selectedWord = wordsBuffer[0];
                     TestLearnedWords(selectedWord);
-                }
-                else
-                {
-                    availableLessons = false;
                 }
             }
         }
@@ -355,7 +365,11 @@ namespace Apricat
                     Sentence testedSentence = (Sentence)selectedLesson;
                     if (userInput == testedSentence.MissingWord.ToLower())
                     {
-                        Lesson.MarkLearned(User.CurrentUser, testedSentence);
+                        if (testedSentence.IsLearned == false)
+                        {
+                            Lesson.MarkLearned(User.CurrentUser, testedSentence);
+                        }
+
                         Lessons.Remove(selectedLesson);
                         return true;
                     }
@@ -370,7 +384,11 @@ namespace Apricat
                     GrammarTest grammarTest = (GrammarTest)selectedLesson;
                     if (userInput == grammarTest.RightAnswer)
                     {
-                        Lesson.MarkLearned(User.CurrentUser, grammarTest);
+                        if (grammarTest.IsLearned == false)
+                        {
+                            Lesson.MarkLearned(User.CurrentUser, grammarTest);
+                        }
+
                         Lessons.Remove(selectedLesson);
                         return true;
                     }
@@ -392,7 +410,11 @@ namespace Apricat
                 {
                     if (userInput == selectedWord.Keyword.ToLower())
                     {
-                        Lesson.MarkLearned(User.CurrentUser, selectedWord);
+                        if (selectedWord.IsLearned == false)
+                        {
+                            Lesson.MarkLearned(User.CurrentUser, selectedWord);
+                        }
+                        
                         wordsBuffer.Remove(selectedWord);
                         return true;
                     }
@@ -404,13 +426,14 @@ namespace Apricat
                 }
                 else
                 {
+                    wordsBuffer.Remove(selectedWord); //Does it need to be here?
                     return true;
                 }
             }
         }
         public bool CheckAvailability()
         {
-            if (availableLessons)
+            if (Lessons.Count > 0 || wordsBuffer.Count > 0)
             {
                 return true;
             }

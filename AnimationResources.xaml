@@ -72,64 +72,63 @@
 
     <ObjectAnimationUsingKeyFrames x:Key="heartsAnimation"
                                    Storyboard.TargetProperty="Source"
-                                   Duration="0:0:2"
-                                   AutoReverse="True">
+                                   Duration="0:0:1.1">
         <DiscreteObjectKeyFrame KeyTime="0:0:0">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 1.png"/>
             </DiscreteObjectKeyFrame.Value>
         </DiscreteObjectKeyFrame>
-        <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0.1">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 2.png"/>
             </DiscreteObjectKeyFrame.Value>
         </DiscreteObjectKeyFrame>
-        <DiscreteObjectKeyFrame KeyTime="0:0:0.4">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 3.png"/>
             </DiscreteObjectKeyFrame.Value>
         </DiscreteObjectKeyFrame>
-        <DiscreteObjectKeyFrame KeyTime="0:0:0.6">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0.3">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 4.png"/>
             </DiscreteObjectKeyFrame.Value>
         </DiscreteObjectKeyFrame>
-        <DiscreteObjectKeyFrame KeyTime="0:0:0.8">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0.4">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 5.png"/>
             </DiscreteObjectKeyFrame.Value>
         </DiscreteObjectKeyFrame>
-        <DiscreteObjectKeyFrame KeyTime="0:0:0.10">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0.5">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 6.png"/>
             </DiscreteObjectKeyFrame.Value>
         </DiscreteObjectKeyFrame>
-        <DiscreteObjectKeyFrame KeyTime="0:0:1.2">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0.6">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 7.png"/>
             </DiscreteObjectKeyFrame.Value>
         </DiscreteObjectKeyFrame>
-        <DiscreteObjectKeyFrame KeyTime="0:0:1.4">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0.7">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 8.png"/>
             </DiscreteObjectKeyFrame.Value>
         </DiscreteObjectKeyFrame>
-        <DiscreteObjectKeyFrame KeyTime="0:0:1.6">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0.8">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 9.png"/>
             </DiscreteObjectKeyFrame.Value>
         </DiscreteObjectKeyFrame>
-        <DiscreteObjectKeyFrame KeyTime="0:0:1.8">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0.9">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 10.png"/>
             </DiscreteObjectKeyFrame.Value>
         </DiscreteObjectKeyFrame>
-        <DiscreteObjectKeyFrame KeyTime="0:0:2">
+        <DiscreteObjectKeyFrame KeyTime="0:0:1">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 11.png"/>
             </DiscreteObjectKeyFrame.Value>
         </DiscreteObjectKeyFrame>
-        <DiscreteObjectKeyFrame KeyTime="0:0:2.2">
+        <DiscreteObjectKeyFrame KeyTime="0:0:1.1">
             <DiscreteObjectKeyFrame.Value>
                 <BitmapImage UriSource="/hearts animation frames/hearts animation 12.png"/>
             </DiscreteObjectKeyFrame.Value>

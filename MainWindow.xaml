@@ -57,7 +57,8 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
-        <Image x:Name="mainAnimationImage" Grid.Row="1" VerticalAlignment="Bottom" Visibility="Visible">
+        <Image x:Name="mainAnimationImage" Grid.Row="1" VerticalAlignment="Bottom" Visibility="Visible"
+               MouseDown="mainAnimation_MouseDown">
             <Image.Triggers>
                 <EventTrigger RoutedEvent="Loaded">
                     <BeginStoryboard>
@@ -72,7 +73,7 @@
             <Image.Triggers>
                 <EventTrigger RoutedEvent="Loaded">
                     <BeginStoryboard>
-                        <Storyboard Completed="ShowHeartsAnimation">
+                        <Storyboard RepeatBehavior="Forever">
                             <StaticResourceExtension ResourceKey="heartsAnimation"/>
                         </Storyboard>
                     </BeginStoryboard>
@@ -137,7 +138,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <ListBox x:Name="grammarTestListBox" Grid.Row="7" BorderBrush="FloralWhite"
+                    <ListBox x:Name="grammarTestListBox" Grid.Row="7" BorderBrush="#fffdfa"
                          Foreground="SaddleBrown" FontSize="22" HorizontalAlignment="Center">
                         <ListBoxItem Content="{Binding Path=Answer1}"/>
                         <ListBoxItem Content="{Binding Path=Answer2}"/>

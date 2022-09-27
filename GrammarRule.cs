@@ -39,6 +39,7 @@ namespace Apricat
                             rule.Content = reader.GetString(2);
                             rule.Level = reader.GetString(3);
                             rule.AudioPath = reader.GetString(4);
+                            rule.IsLearned = false;
                         }
                     }
                 }
@@ -73,38 +74,12 @@ namespace Apricat
                             rule.Content = reader.GetString(2);
                             rule.Level = reader.GetString(3);
                             rule.AudioPath = reader.GetString(4);
+                            rule.IsLearned = true;
                         }
                     }
                 }
             }
             return rule;
-        }
-        public GrammarTest CallTest(GrammarRule rule)
-        {
-            sqlExpression = @"SELECT * FROM GrammarTests
-                              WHERE GrammarRuleId=@GrammarRuleId";
-            GrammarTest grammarTest = new GrammarTest();
-            using (SqliteConnection connection = new SqliteConnection(connectionString))
-            {
-                connection.Open();
-                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
-                SqliteParameter grammarRuleIdParam = new SqliteParameter("@GrammarRuleId", rule.Id);
-                command.Parameters.Add(grammarRuleIdParam);
-                using (SqliteDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        grammarTest.Id = reader.GetInt32(0);
-                        grammarTest.Title = reader.GetString(1);
-                        grammarTest.ExerciseText = reader.GetString(1);
-                        grammarTest.RightAnswer = reader.GetString(2);
-                        grammarTest.WrongAnswer1 = reader.GetString(3);
-                        grammarTest.WrongAnswer2 = reader.GetString(4);
-                        grammarTest.AudioPath = reader.GetString(5);
-                    }
-                }
-            }
-            return grammarTest;
         }
     }
 }

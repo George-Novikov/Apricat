@@ -50,10 +50,8 @@ namespace Apricat
                 settingsGroupBox.Visibility = Visibility.Visible;
             else settingsGroupBox.Visibility = Visibility.Collapsed;
         }
-        public void nextButton_Click(object sender, RoutedEventArgs e)
+        public async void nextButton_Click(object sender, RoutedEventArgs e)
         {
-            inputTextBox.Visibility = Visibility.Collapsed;
-
             bool passed;
             if (grammarTestListBox.SelectedItem != null)
             {
@@ -69,9 +67,17 @@ namespace Apricat
             }
             if (passed)
             {
-                ShowHeartsAnimation(sender, e);
-                //mainAnimationImage.Visibility = Visibility.Collapsed;
-                //heartsAnimationImage.Visibility = Visibility.Visible;
+                ShowHeartsAnimation();
+                nextButton.IsEnabled = false;
+                await Task.Delay(650);
+                ShowHeartsAnimation();
+                nextButton.IsEnabled = true;
+            }
+            else
+            {
+                nextButton.IsEnabled = false;
+                await Task.Delay(650);
+                nextButton.IsEnabled = true;
             }
             
             if (viewModel.CheckAvailability())
@@ -81,9 +87,13 @@ namespace Apricat
             else
             {
                 //washingAnimation.Visibility = Visibility.Visible;
-                MessageBox.Show("Все уроки пройдены. Отличная работа!");
                 nextButton.IsEnabled = false;
+                MessageBox.Show("Все уроки пройдены. Отличная работа!");
             }
+
+            inputTextBox.Visibility = Visibility.Collapsed;
+            spaceTextBlock.Visibility = Visibility.Visible;
+            inputTextBox.Text = "";
         }
         public void EllipsePainter(bool passed)
         {
@@ -106,7 +116,7 @@ namespace Apricat
                 answersIndicator.Children.Add(ellipse);
             }
         }
-        public void ShowHeartsAnimation(object sender, EventArgs e)
+        public void ShowHeartsAnimation()
         {
             if (mainAnimationImage.Visibility == Visibility.Visible)
             {
@@ -126,6 +136,8 @@ namespace Apricat
 
             answersIndicator.Children.Clear();
 
+            spaceTextBlock.Visibility = Visibility.Visible;
+            inputTextBox.Text = "";
             nextButton.IsEnabled = true;
 
             viewModel.Lessons.Clear();
@@ -141,6 +153,8 @@ namespace Apricat
 
             answersIndicator.Children.Clear();
 
+            spaceTextBlock.Visibility = Visibility.Visible;
+            inputTextBox.Text = "";
             nextButton.IsEnabled = true;
 
             viewModel.Lessons.Clear();
@@ -194,6 +208,14 @@ namespace Apricat
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        public void mainAnimation_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string audioPath = "..\\audio\\meow.wav";
+            Uri audioUri = new Uri(audioPath, UriKind.RelativeOrAbsolute);
+            StreamResourceInfo streamResourceInfo = Application.GetResourceStream(audioUri);
+            SoundPlayer player = new SoundPlayer(streamResourceInfo.Stream);
+            player.Play();
         }
     }
 }

@@ -45,6 +45,7 @@ namespace Apricat
                             derivedSentence.Translation = reader.GetString(4);
                             derivedSentence.Level = reader.GetString(5);
                             derivedSentence.AudioPath = reader.GetString(6);
+                            derivedSentence.IsLearned = false;
                             sentenceList.Add(derivedSentence);
                         }
                     }
@@ -85,6 +86,7 @@ namespace Apricat
                             derivedSentence.Translation = reader.GetString(4);
                             derivedSentence.Level = reader.GetString(5);
                             derivedSentence.AudioPath = reader.GetString(6);
+                            derivedSentence.IsLearned = true;
                             sentenceList.Add(derivedSentence);
                         }
                     }

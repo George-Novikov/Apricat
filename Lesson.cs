@@ -13,6 +13,7 @@ namespace Apricat
         public int Id { get; set; }
         public string Level { get; set; }
         public string AudioPath { get; set; }
+        public bool IsLearned { get; set; }
         public static ObservableCollection<Lesson> LoadLessonsFromDB(User user)
         {
             ObservableCollection<Lesson> lessons = new ObservableCollection<Lesson>();
