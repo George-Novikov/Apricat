@@ -261,7 +261,7 @@ namespace Apricat
             Answer1 = null;
             Answer2 = null;
             Answer3 = null;
-            AudioPath = word.AudioPath;
+            AudioPath = word.Keyword + ".wav";
         }
         private void StudySentence(Lesson lesson)
         {
@@ -282,7 +282,7 @@ namespace Apricat
             Answer1 = null;
             Answer2 = null;
             Answer3 = null;
-            AudioPath = sentence.AudioPath;
+            AudioPath = sentence.MissingWord + " sentence.wav";
         }
         private void StudyGrammar(Lesson lesson)
         {

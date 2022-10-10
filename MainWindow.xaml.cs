@@ -192,12 +192,13 @@ namespace Apricat
         public void playButton_Click(object sender, RoutedEventArgs e)
         {
             string meow = "meow.wav";
-            string audioPath = "..\\audio\\" + meow; //+viewModel.AudioPath
+            string audioPath = "..\\audio\\" + meow;
 
-            /*if (viewModel.AudioPath != null)
+            if (viewModel.AudioPath != null)
             {
-                audioPath = viewModel.AudioPath;
-            }*/
+                audioPath = "..\\audio\\" + viewModel.AudioPath;
+            }
+
             Uri audioUri = new Uri(audioPath, UriKind.RelativeOrAbsolute);
 
             try

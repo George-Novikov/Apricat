@@ -21,15 +21,18 @@ namespace Apricat
                               WHERE WordId NOT IN
                              (SELECT WordId FROM LearnedWords
                               WHERE UserId=@UserId)
-                              AND Level=@UserLevel";
+                              AND Level=@UserLevel
+                              ORDER BY RANDOM() LIMIT @Limit";
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand(sqlExpression, connection);
                 SqliteParameter userIdParam = new SqliteParameter(@"UserId", user.Id);
                 command.Parameters.Add(userIdParam);
-                SqliteParameter userLevelParam = new SqliteParameter("UserLevel", user.Level);
+                SqliteParameter userLevelParam = new SqliteParameter("@UserLevel", user.Level);
                 command.Parameters.Add(userLevelParam);
+                SqliteParameter limitParam = new SqliteParameter("@Limit", wordsCount);
+                command.Parameters.Add(limitParam);
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
@@ -42,7 +45,6 @@ namespace Apricat
                             derivedWord.Transcription = reader.GetString(2);
                             derivedWord.Translation = reader.GetString(3);
                             derivedWord.Level = reader.GetString(4);
-                            derivedWord.AudioPath = reader.GetString(5);
                             derivedWord.IsLearned = false;
                             wordList.Add(derivedWord);
                         }
@@ -61,15 +63,15 @@ namespace Apricat
                               WHERE WordId IN
                              (SELECT WordId FROM LearnedWords
                               WHERE UserId=@UserId)
-                              AND Level=@UserLevel";
+                              ORDER BY RANDOM() LIMIT @Limit";
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand(sqlExpression, connection);
                 SqliteParameter userIdParam = new SqliteParameter(@"UserId", user.Id);
                 command.Parameters.Add(userIdParam);
-                SqliteParameter userLevelParam = new SqliteParameter("UserLevel", user.Level);
-                command.Parameters.Add(userLevelParam);
+                SqliteParameter limitParam = new SqliteParameter("@Limit", wordsCount);
+                command.Parameters.Add(limitParam);
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
@@ -82,7 +84,6 @@ namespace Apricat
                             derivedWord.Transcription = reader.GetString(2);
                             derivedWord.Translation = reader.GetString(3);
                             derivedWord.Level = reader.GetString(4);
-                            derivedWord.AudioPath = reader.GetString(5);
                             derivedWord.IsLearned = true;
                             wordList.Add(derivedWord);
                         }
