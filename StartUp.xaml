@@ -114,7 +114,7 @@
                     </ToggleButton>
                     <ToggleButton x:Name="upperIntermediateButton" Height="95" MinWidth="95" Margin="10"
                                   Background="#fffdfa" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
-                                  Click="ToggleButtons_UncheckOnClick">
+                                  Click="ToggleButtons_UncheckOnClick" Visibility="Hidden">
                         <ToggleButton.Content>
                             <TextBlock TextAlignment="Center">
                                 Выше среднего<LineBreak/>
@@ -130,7 +130,7 @@
                     </ToggleButton>
                     <ToggleButton x:Name="advancedButton" Height="95" MinWidth="95" Margin="10"
                                   Background="#fffdfa" Foreground="SaddleBrown" BorderBrush="SaddleBrown"
-                                  Click="ToggleButtons_UncheckOnClick">
+                                  Click="ToggleButtons_UncheckOnClick" Visibility="Hidden">
                         <ToggleButton.Content>
                             <TextBlock TextAlignment="Center">
                                 Продвинутый<LineBreak/>

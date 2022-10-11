@@ -752,6 +752,7 @@
     <None Remove="audio\dig.wav" />
     <None Remove="audio\digital camera.wav" />
     <None Remove="audio\digital.wav" />
+    <None Remove="audio\ding.wav" />
     <None Remove="audio\dining room.wav" />
     <None Remove="audio\dinner.wav" />
     <None Remove="audio\dinosaur.wav" />
@@ -2994,7 +2995,6 @@
     <None Remove="main animation frames\main animation 3.png" />
     <None Remove="main animation frames\main animation 4.png" />
     <None Remove="meow.wav" />
-    <None Remove="play.png" />
     <None Remove="playbutton.png" />
     <None Remove="playbuttonover.png" />
     <None Remove="settings.png" />
@@ -5210,6 +5210,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="audio\digital.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="audio\ding.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="audio\dining room.wav">
@@ -11940,9 +11943,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="main animation frames\main animation 4.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="play.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="playbutton.png">

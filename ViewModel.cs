@@ -161,6 +161,16 @@ namespace Apricat
                 OnPropertyChanged("SelectedWord");
             }
         }
+        private Sentence selectedSentence;
+        public Sentence SelectedSentence
+        {
+            get { return selectedSentence; }
+            set
+            {
+                selectedSentence = value;
+                OnPropertyChanged("SelectedSentence");
+            }
+        }
         public ViewModel()
         {
             Lessons = new ObservableCollection<Lesson>();
@@ -189,7 +199,6 @@ namespace Apricat
             {
                 Lessons.Add(grammarTest);
             }
-            
         }
         public void LoadRepetition(User user)
         {
@@ -223,7 +232,16 @@ namespace Apricat
 
                 if (selectedLesson.GetType() == typeof(Sentence))
                 {
-                    StudySentence(selectedLesson);
+                    if (selectedSentence == null)
+                    {
+                        StudySentence(selectedLesson);
+                        selectedSentence = (Sentence)selectedLesson;
+                    }
+                    else
+                    {
+                        TestLearnedSentence(selectedSentence);
+                        selectedSentence = null;
+                    }                    
                 }
                 else if (selectedLesson.GetType() == typeof(GrammarRule))
                 {
@@ -249,69 +267,41 @@ namespace Apricat
         }
         private void StudyWord(Lesson lesson)
         {
+            ClearViewModelFields();
             Word word = (Word)lesson;
             Header = "Новое слово: " + word.Keyword;
             Keyword = word.Keyword;
-            SentenceLeftPart = "";
-            SentenceRightPart = "";
-            MissingWord = "";
-            Space = "";
             Transcription = word.Transcription;
             Translation = word.Translation;
-            Answer1 = null;
-            Answer2 = null;
-            Answer3 = null;
-            AudioPath = word.Keyword + ".wav";
+            AudioPath = word.AudioPath;
         }
         private void StudySentence(Lesson lesson)
         {
+            ClearViewModelFields();
             Sentence sentence = (Sentence)lesson;
-            Header = "Заполните пропущенное слово";
-            Keyword = "";
+            Header = "Прочитайте и запомните предложение";
             SentenceLeftPart = sentence.SentenceLeftPart;
             SentenceRightPart = sentence.SentenceRightPart;
             MissingWord = sentence.MissingWord;
-            Space = "";
-            while (Space.Length < sentence.MissingWord.Length)
-            {
-                Space += "_";
-            }
-            Space = " " + Space + " ";
-            Transcription = "";
+            Space = " " + sentence.MissingWord + " ";
             Translation = sentence.Translation;
-            Answer1 = null;
-            Answer2 = null;
-            Answer3 = null;
-            AudioPath = sentence.MissingWord + " sentence.wav";
+            AudioPath = sentence.AudioPath;
         }
         private void StudyGrammar(Lesson lesson)
         {
+            ClearViewModelFields();
             GrammarRule grammarRule = (GrammarRule)lesson;
             Header = grammarRule.Title;
-            Keyword = "";
-            SentenceLeftPart = "";
-            SentenceRightPart = "";
-            MissingWord = "";
-            Space = "";
-            Transcription = "";
             Translation = grammarRule.Content;
-            Answer1 = null;
-            Answer2 = null;
-            Answer3 = null;
             AudioPath = grammarRule.AudioPath;
         }
         private void TakeATest(Lesson lesson)
         {
+            ClearViewModelFields();
             GrammarTest grammarTest = (GrammarTest)lesson;
             Header = grammarTest.Title;
             Keyword = grammarTest.ExerciseText;
-            SentenceLeftPart = "";
-            SentenceRightPart = "";
-            MissingWord = "";
-            Space = "";
-            Transcription = "";
             Translation = "Выберите правильный ответ:";
-            AudioPath = "";
 
             Random random = new Random();
             int answerOrder = random.Next(1, 3);
@@ -337,33 +327,40 @@ namespace Apricat
         }
         private void TestLearnedWords(Lesson lesson)
         {
+            ClearViewModelFields();
             Word word = (Word)lesson;
             Header = "Как это по-английски? Напишите слово вместо звёздочек:";
-            Keyword = "";
-            SentenceLeftPart = "";
-            SentenceRightPart = "";
-            MissingWord = "";
-            Space = "";
             while (Space.Length < word.Keyword.Length)
             {
                 Space += "*";
             }
             Space = "\" " + Space + " \"";
-            Transcription = "";
             Translation = word.Translation;
-            Answer1 = null;
-            Answer2 = null;
-            Answer3 = null;
             AudioPath = word.AudioPath;
+        }
+        private void TestLearnedSentence(Sentence sentence)
+        {
+            ClearViewModelFields();
+            Header = "Заполните пропущенное слово";
+            SentenceLeftPart = sentence.SentenceLeftPart;
+            SentenceRightPart = sentence.SentenceRightPart;
+            MissingWord = sentence.MissingWord;
+            while (Space.Length < sentence.MissingWord.Length)
+            {
+                Space += "_";
+            }
+            Space = " " + Space + " ";
+            Translation = sentence.Translation;
+            AudioPath = sentence.AudioPath;
         }
         public bool CheckLesson(string userInput)
         {
             if (Lessons.Count > 0)
             {
-                if (selectedLesson.GetType() == typeof(Sentence))
+                if (selectedLesson.GetType() == typeof(Sentence) && selectedSentence != null)
                 {
                     Sentence testedSentence = (Sentence)selectedLesson;
-                    if (userInput == testedSentence.MissingWord.ToLower())
+                    if (userInput == testedSentence.MissingWord)
                     {
                         if (testedSentence.IsLearned == false)
                         {
@@ -408,7 +405,7 @@ namespace Apricat
             {
                 if (wordsBuffer.Count > 0)
                 {
-                    if (userInput == selectedWord.Keyword.ToLower())
+                    if (userInput == selectedWord.Keyword)
                     {
                         if (selectedWord.IsLearned == false)
                         {
@@ -441,6 +438,21 @@ namespace Apricat
             {
                 return false;
             }
+        }
+        private void ClearViewModelFields()
+        {
+            Header = "";
+            Keyword = "";
+            SentenceLeftPart = "";
+            SentenceRightPart = "";
+            MissingWord = "";
+            Space = "";
+            Transcription = "";
+            Translation = "";
+            Answer1 = null;
+            Answer2 = null;
+            Answer3 = null;
+            AudioPath = "";
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string name = "")

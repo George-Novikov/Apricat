@@ -18,7 +18,8 @@ namespace Apricat
                               WHERE GrammarRuleId NOT IN
                              (SELECT GrammarRuleId FROM LearnedGrammar
                               WHERE UserId=@UserId)
-                              AND Level=@UserLevel";
+                              AND Level=@UserLevel
+                              ORDER BY RANDOM() LIMIT 1";
             GrammarRule rule = new GrammarRule();
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
@@ -53,7 +54,7 @@ namespace Apricat
                               WHERE GrammarRuleId IN
                              (SELECT GrammarRuleId FROM LearnedGrammar
                               WHERE UserId=@UserId)
-                              AND Level=@UserLevel";
+                              ORDER BY RANDOM() LIMIT 1";
             GrammarRule rule = new GrammarRule();
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
@@ -61,8 +62,6 @@ namespace Apricat
                 SqliteCommand command = new SqliteCommand(sqlExpression, connection);
                 SqliteParameter userIdParam = new SqliteParameter("@UserId", user.Id);
                 command.Parameters.Add(userIdParam);
-                SqliteParameter userLevelParam = new SqliteParameter("@UserLevel", user.Level);
-                command.Parameters.Add(userLevelParam);
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)

@@ -70,6 +70,7 @@ namespace Apricat
             if (passed)
             {
                 ShowHeartsAnimation();
+                lessonPassedPlaySound();
                 nextButton.IsEnabled = false;
                 await Task.Delay(625);
                 ShowHeartsAnimation();
@@ -150,6 +151,7 @@ namespace Apricat
         }
         public void repetitionButton_Click(object sender, RoutedEventArgs e)
         {
+
             workplaceGroupBox.Visibility = Visibility.Visible;
             progressGroupBox.Visibility = Visibility.Collapsed;
 
@@ -215,6 +217,14 @@ namespace Apricat
         public void mainAnimation_MouseDown(object sender, MouseButtonEventArgs e)
         {
             string audioPath = "..\\audio\\meow.wav";
+            Uri audioUri = new Uri(audioPath, UriKind.RelativeOrAbsolute);
+            StreamResourceInfo streamResourceInfo = Application.GetResourceStream(audioUri);
+            SoundPlayer player = new SoundPlayer(streamResourceInfo.Stream);
+            player.Play();
+        }
+        public void lessonPassedPlaySound()
+        {
+            string audioPath = "..\\audio\\ding.wav";
             Uri audioUri = new Uri(audioPath, UriKind.RelativeOrAbsolute);
             StreamResourceInfo streamResourceInfo = Application.GetResourceStream(audioUri);
             SoundPlayer player = new SoundPlayer(streamResourceInfo.Stream);

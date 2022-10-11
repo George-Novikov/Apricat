@@ -59,14 +59,5 @@ namespace Apricat.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        public static System.IO.UnmanagedMemoryStream meow1 {
-            get {
-                return ResourceManager.GetStream("meow1", resourceCulture);
-            }
-        }
     }
 }
