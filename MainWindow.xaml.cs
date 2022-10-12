@@ -151,6 +151,7 @@ namespace Apricat
         }
         public void repetitionButton_Click(object sender, RoutedEventArgs e)
         {
+            viewModel.ClearViewModelFields();
 
             workplaceGroupBox.Visibility = Visibility.Visible;
             progressGroupBox.Visibility = Visibility.Collapsed;
@@ -224,7 +225,7 @@ namespace Apricat
         }
         public void lessonPassedPlaySound()
         {
-            string audioPath = "..\\audio\\ding.wav";
+            string audioPath = "..\\audio\\gentleding.wav";
             Uri audioUri = new Uri(audioPath, UriKind.RelativeOrAbsolute);
             StreamResourceInfo streamResourceInfo = Application.GetResourceStream(audioUri);
             SoundPlayer player = new SoundPlayer(streamResourceInfo.Stream);

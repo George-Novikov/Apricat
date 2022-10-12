@@ -228,7 +228,14 @@ namespace Apricat
         {
             if (Lessons.Count > 0)
             {
-                selectedLesson = Lessons[0];
+                if (selectedSentence == null)
+                {
+                    selectedLesson = Lessons[0];
+                }
+                else
+                {
+                    selectedLesson = selectedSentence;
+                }
 
                 if (selectedLesson.GetType() == typeof(Sentence))
                 {
@@ -240,7 +247,6 @@ namespace Apricat
                     else
                     {
                         TestLearnedSentence(selectedSentence);
-                        selectedSentence = null;
                     }                    
                 }
                 else if (selectedLesson.GetType() == typeof(GrammarRule))
@@ -282,7 +288,6 @@ namespace Apricat
             Header = "Прочитайте и запомните предложение";
             SentenceLeftPart = sentence.SentenceLeftPart;
             SentenceRightPart = sentence.SentenceRightPart;
-            MissingWord = sentence.MissingWord;
             Space = " " + sentence.MissingWord + " ";
             Translation = sentence.Translation;
             AudioPath = sentence.AudioPath;
@@ -341,7 +346,7 @@ namespace Apricat
         private void TestLearnedSentence(Sentence sentence)
         {
             ClearViewModelFields();
-            Header = "Заполните пропущенное слово";
+            Header = "Какое слово прошущено? Напишите его:";
             SentenceLeftPart = sentence.SentenceLeftPart;
             SentenceRightPart = sentence.SentenceRightPart;
             MissingWord = sentence.MissingWord;
@@ -355,28 +360,28 @@ namespace Apricat
         }
         public bool CheckLesson(string userInput)
         {
+            if (selectedSentence != null && MissingWord != "")
+            {
+                if (userInput == selectedSentence.MissingWord)
+                {
+                    if (selectedSentence.IsLearned == false)
+                    {
+                        Lesson.MarkLearned(User.CurrentUser, selectedSentence);
+                    }
+
+                    selectedSentence = null;
+                    return true;
+                }
+                else
+                {
+                    selectedSentence = null;
+                    return false;
+                }
+            }
+
             if (Lessons.Count > 0)
             {
-                if (selectedLesson.GetType() == typeof(Sentence) && selectedSentence != null)
-                {
-                    Sentence testedSentence = (Sentence)selectedLesson;
-                    if (userInput == testedSentence.MissingWord)
-                    {
-                        if (testedSentence.IsLearned == false)
-                        {
-                            Lesson.MarkLearned(User.CurrentUser, testedSentence);
-                        }
-
-                        Lessons.Remove(selectedLesson);
-                        return true;
-                    }
-                    else
-                    {
-                        Lessons.Remove(selectedLesson);
-                        return false;
-                    }
-                }
-                else if (selectedLesson.GetType() == typeof(GrammarTest))
+                if (selectedLesson.GetType() == typeof(GrammarTest))
                 {
                     GrammarTest grammarTest = (GrammarTest)selectedLesson;
                     if (userInput == grammarTest.RightAnswer)
@@ -439,7 +444,7 @@ namespace Apricat
                 return false;
             }
         }
-        private void ClearViewModelFields()
+        public void ClearViewModelFields()
         {
             Header = "";
             Keyword = "";

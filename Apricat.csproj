@@ -1134,6 +1134,7 @@
     <None Remove="audio\generation.wav" />
     <None Remove="audio\generous.wav" />
     <None Remove="audio\gentle.wav" />
+    <None Remove="audio\gentleding.wav" />
     <None Remove="audio\geography.wav" />
     <None Remove="audio\get.wav" />
     <None Remove="audio\ghost.wav" />
@@ -6356,6 +6357,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="audio\gentle.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="audio\gentleding.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="audio\geography.wav">
