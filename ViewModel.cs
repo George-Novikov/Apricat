@@ -288,7 +288,7 @@ namespace Apricat
             Header = "Прочитайте и запомните предложение";
             SentenceLeftPart = sentence.SentenceLeftPart;
             SentenceRightPart = sentence.SentenceRightPart;
-            Space = " " + sentence.MissingWord + " ";
+            Space = sentence.MissingWord;
             Translation = sentence.Translation;
             AudioPath = sentence.AudioPath;
         }
@@ -354,7 +354,6 @@ namespace Apricat
             {
                 Space += "_";
             }
-            Space = " " + Space + " ";
             Translation = sentence.Translation;
             AudioPath = sentence.AudioPath;
         }

@@ -178,21 +178,21 @@
                     <TextBlock x:Name="vocabularyTextBlock"/>
                     <Button Content="Посмотреть" FontSize="12" BorderBrush="FloralWhite"
                             MinWidth="90" MinHeight="20" Margin="25 0 0 0"
-                            VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            VerticalAlignment="Center" HorizontalAlignment="Right" Visibility="Hidden"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="20 0 0 0">
                     <TextBlock Text="Предложения: "/>
                     <TextBlock x:Name="sentenceTextBlock"/>
                     <Button Content="Посмотреть" FontSize="12" BorderBrush="FloralWhite"
                             MinWidth="90" MinHeight="20" Margin="25 0 0 0"
-                            VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            VerticalAlignment="Center" HorizontalAlignment="Right" Visibility="Hidden"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="20 0 0 0">
                     <TextBlock Text="Правил выучено: "/>
                     <TextBlock x:Name="rulesTextBlock"/>
                     <Button Content="Посмотреть" FontSize="12" BorderBrush="FloralWhite"
                             MinWidth="90" MinHeight="20" Margin="25 0 0 0"
-                            VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            VerticalAlignment="Center" HorizontalAlignment="Right" Visibility="Hidden"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="20 0 0 0">
                     <TextBlock Text="Уровень английского: "/>
